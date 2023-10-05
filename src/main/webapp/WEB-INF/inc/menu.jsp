@@ -16,11 +16,16 @@
     }
     a.navbar-brand, ul { font-family: 'MBC1961GulimM'; }
 </style>
+<%
+//    MemberDTO memberDTO=session.getAttribute("loginInfo");
+//    String sessionMemberId=(String)memberDTO.getEmailId();
+    String sessionMemberName=(String)session.getAttribute("memberName");
+%>
 
 <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
 
     <div class="container">
-        <a class="navbar-brand" href="index.html">Mongchi Shop<span>.</span></a>
+        <a class="navbar-brand" href="../../index.jsp">Mongchi Shop<span>.</span></a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -46,18 +51,8 @@
             </ul>
 
             <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-            <c:choose>
-                <c:when test="${empty sessionMemberId }">
-                        <li><a class="nav-link" href="../member/loginMember.jsp"><img src="/images/user.svg"></a></li
-                        <li><a class="nav-link" href="../member/loginMember.jsp"><img src="/images/cart.svg"></a></li>
-                </c:when>
-                <c:otherwise>
-                    <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-                        <li><a class="nav-link" href="../member/myPage.jsp"><img src="/images/user.svg"></a></li>
-                        <li><a class="nav-link" href="cart.html"><img src="/images/cart.svg"></a></li>
-                    </ul>
-                </c:otherwise>
-            </c:choose>
+                <li><a class="nav-link" href="../member/loginMember.jsp"><img src="/images/user.svg"></a></li>
+                <li><a class="nav-link" href="../member/loginMember.jsp"><img src="/images/cart.svg"></a></li>
             </ul>
         </div>
     </div>

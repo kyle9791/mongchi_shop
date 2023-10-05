@@ -1,11 +1,8 @@
 package com.example.controller;
 
-import com.example.domain.QnABoardVO;
 import com.example.dto.QnABoardDTO;
 import com.example.service.QnABoardService;
 import lombok.extern.log4j.Log4j2;
-import org.apache.commons.beanutils.BeanUtils;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

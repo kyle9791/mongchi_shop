@@ -7,9 +7,6 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <link href="/css/tiny-slider.css" rel="stylesheet">
   <link href="/css/style.css" rel="stylesheet">
-  <link href="/scss/table.scss" rel="stylesheet">
-
-  <script src="https://kit.fontawesome.com/dc88001a08.js" crossorigin="anonymous"></script>
     <title>qna</title>
 </head>
 <body>
@@ -35,80 +32,96 @@
 
 <jsp:include page="../inc/menu.jsp"/>
 
-<!-- Start Hero Section -->
+<!-- 제목 영역 시작 -->
 <div class="hero">
   <div class="container">
     <h1><span class="d-block">p126의 QnA 목록</span></h1>
   </div>
 </div>
-<!-- End Hero Section -->
+<!-- 제목 영역 끝 -->
 
 
-<table class="fold-table">
-  <thead>
-  <tr>
-    <th>답변 여부</th>
-    <th>아이디</th>
-    <th>제목</th>
-    <th>작성일</th>
-    <th>내용</th>
-  </tr>
-  </thead>
+<section class="ftco-section">
+  <div class="container">
+    <div class="row justify-content-center"></div>
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="h5 mb-4 text-center"></h3>
+        <div>
+          <table class="table myaccordion table-hover" id="accordion">
+            <thead>
+            <tr>
+              <th>답변 여부</th>
+              <th>아이디</th>
+              <th>내용</th>
+              <th>작성일</th>
+              <th>&nbsp;</th>
+            </tr>
+            </thead>
 
-  <c:forEach var="qnaDto" items="${qnABoardDTOList}">
-  <tbody>
-  <tr class="view">
-    <td>${qnaDto.isAnswered() ? "답변 완료" : "미답변"}</td>
-    <td>${qnaDto.getEmailId()}</td>
-    <c:if test="${qnaDto.secreted == true}">
-      <c:choose>
-        <c:when test="${qnaDto.emailId eq 'a'}">
-          <td><a href="/qnaBoard/view?pcode=${qnaDto.pcode}&qno=${qnaDto.qno}">${qnaDto.questionSubject}</a></td>
-        </c:when>
-        <c:otherwise>
-          <td><i class="fa-solid fa-lock"></i>&nbsp;비밀글입니다</td>
-        </c:otherwise>
-      </c:choose>
-    </c:if>
-    <td>${qnaDto.getQuestionDate()}</td>
-    <td>${qnaDto.getQuestionContent()}</td>
-  </tr>
-  </c:forEach>
 
-  <tr class="fold">
-    <td colspan="7">
-      <c:forEach var="qnaDto" items="${qnABoardDTOList}">
-        <div class="fold-content">
-          <c:if test="${qnaDto.secreted == true && qnaDto.answered == true}">
-            <c:choose>
-              <c:when test="${qnaDto.emailId eq 'a'}">
-                <p><a href="/qnaBoard/view?pcode=${qnaDto.pcode}&qno=${qnaDto.qno}">${qnaDto.questionSubject}</a></p>
-                <p>${qnaDto.questionContent}</p>
-                <p>${qnaDto.answerContent}</p>
-                <p>${qnaDto.answerDate}</p>
-              </c:when>
-              <c:otherwise>
-                <td><i class="fa-solid fa-lock"></i>&nbsp;비밀글입니다</td>
-              </c:otherwise>
-            </c:choose>
-          </c:if>
+            <tbody>
+            <c:forEach var="qnaDto" items="${qnABoardDTOList}">
+            <tr data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+              <td>${qnaDto.isAnswered() ? "답변 완료" : "미답변"}</td>
+              <td>${qnaDto.getEmailId()}</td>
+              <c:if test="${qnaDto.secreted == true}">
+                <c:choose>
+                  <c:when test="${qnaDto.emailId eq 'd'}">
+                    <td>${qnaDto.questionContent}</td>
+                  </c:when>
+                  <c:otherwise>
+                    <td><i class="fa-solid fa-lock"></i>&nbsp;비밀글입니다</td>
+                  </c:otherwise>
+                </c:choose>
+              </c:if>
+              <c:if test="${qnaDto.secreted == false}">
+                <td>${qnaDto.questionContent}</td>
+              </c:if>
+              <td>${qnaDto.getQuestionDate()}</td>
+            </tr>
+            </c:forEach>
+
+<%--              답변 영역 --%>
+            <c:forEach var="qnaDto" items="${qnABoardDTOList}">
+            <tr>
+                  <c:if test="${qnaDto.secreted == true && qnaDto.answered == true}">
+                    <c:choose>
+                      <c:when test="${qnaDto.emailId eq 'd'}">
+                        <td colspan="6">${qnaDto.questionContent}</td>
+                        <td colspan="6">${qnaDto.answerContent}</td>
+                        <td colspan="6">${qnaDto.answerDate}</td>
+                      </c:when>
+                    </c:choose>
+                  </c:if>
+                <c:if test="${qnaDto.secreted == false && qnaDto.answered == true}">
+                  <td>${qnaDto.questionContent}</td>
+                  <td>${qnaDto.answerContent}</td>
+                  <td>${qnaDto.answerDate}</td>
+                </c:if>
+            </tr>
+            </c:forEach>
+            </tbody>
+          </table>
         </div>
-      </c:forEach>
-    </td>
-  </tr>
+      </div>
+    </div>
+  </div>
+</section>
 
 
-  </tbody>
-</table>
 
 
-<div></div>
+
+
+
+<%--<div></div>--%>
 
 <!-- 페이지 -->
 <div style="text-align: center">
   <c:set var="currentPage" value="<%=currentPage%>"/>
 
-  <a href="/qnaBoard/qnaList?currentPage=1"/><span>첫 페이지</span></a>
+  <a href="/qnaBoard/qnaList?currentPage=1"/><span>처음</span></a>
   <c:if test="${thisBlock>1}">
     <a href="/qnaBoard/qnaList?currentPage=${firstPage-1}"/><span>이전</span></a>
   </c:if>
@@ -129,12 +142,11 @@
   <c:if test="${thisBlock<totalBlock}">
     <a href="/qnaBoard/qnaList?currentPage=${lastPage+1}"/><span>다음</span></a>
   </c:if>
-  <a href="/qnaBoard/qnaList?currentPage=${totalPage}"/><span>끝 페이지</span></a>
+  <a href="/qnaBoard/qnaList?currentPage=${totalPage}"/><span>마지막</span></a>
 
   <script src="/js/bootstrap.bundle.min.js"></script>
   <script src="/js/tiny-slider.js"></script>
   <script src="/js/custom.js"></script>
-  <script src="/js/table.js"></script>
   <jsp:include page="../inc/footer.jsp"/>
 </div>
 </div>

@@ -44,7 +44,6 @@ public class QnABoardDAO {
                     .pcode(pcode)
                     .questionDate(resultSet.getString("questionDate"))
                     .answerDate(resultSet.getString("questionDate"))
-                    .questionSubject(resultSet.getString("questionSubject"))
                     .questionContent(resultSet.getString("questionContent"))
                     .qno(qno)
                     .answerContent(resultSet.getString("answerContent"))
@@ -76,7 +75,6 @@ public class QnABoardDAO {
                     .pcode(resultSet.getString("pcode"))
                     .questionDate(resultSet.getString("questionDate"))
                     .answerDate(resultSet.getString("questionDate"))
-                    .questionSubject(resultSet.getString("questionSubject"))
                     .questionContent(resultSet.getString("questionContent"))
                     .qno(resultSet.getInt("qno"))
                     .answerContent(resultSet.getString("answerContent"))
@@ -92,27 +90,26 @@ public class QnABoardDAO {
 
 
     public void insertQnABoard(QnABoardVO qnaBoardVO) throws Exception {
-        String sql="insert into qna_board (emailId, pcode, questionSubject, questionContent, secreted, questionDate) "+
-                "values(?,?,?,?,?,now())";
+        String sql="insert into qna_board (emailId, pcode, questionContent, secreted, questionDate) "+
+                "values(?,?,?,?,now())";
         @Cleanup Connection connection= ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement preparedStatement=connection.prepareStatement(sql);
 
         preparedStatement.setString(1, qnaBoardVO.getEmailId());
         preparedStatement.setString(2, qnaBoardVO.getPcode());
-        preparedStatement.setString(3, qnaBoardVO.getQuestionSubject());
-        preparedStatement.setString(4, qnaBoardVO.getQuestionContent());
-        preparedStatement.setBoolean(5, qnaBoardVO.isSecreted());
+        preparedStatement.setString(3, qnaBoardVO.getQuestionContent());
+        preparedStatement.setBoolean(4, qnaBoardVO.isSecreted());
         preparedStatement.executeUpdate();
     }
 
     public void updateQuestionBoard(QnABoardVO qnaBoardVO) throws Exception {
-        String sql="update qna_board set questionSubject=?, questionContent=? where qno=?";
+        String sql="update qna_board set questionContent=?, secreted=? where qno=?";
 
         @Cleanup Connection connection= ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement preparedStatement=connection.prepareStatement(sql);
 
-        preparedStatement.setString(1, qnaBoardVO.getQuestionSubject());
-        preparedStatement.setString(2, qnaBoardVO.getQuestionContent());
+        preparedStatement.setString(1, qnaBoardVO.getQuestionContent());
+        preparedStatement.setBoolean(2, qnaBoardVO.isSecreted());
         preparedStatement.setInt(3, qnaBoardVO.getQno());
 
         preparedStatement.executeUpdate();
