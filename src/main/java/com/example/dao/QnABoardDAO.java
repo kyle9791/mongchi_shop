@@ -1,0 +1,145 @@
+package com.example.dao;
+
+import com.example.domain.QnABoardVO;
+import com.example.util.ConnectionUtil;
+import lombok.Cleanup;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
+
+
+public class QnABoardDAO {
+
+    public int getQnAListCount(String pcode) throws Exception {
+
+        String sql="select count(*) from qna_board where pcode=?";
+        @Cleanup Connection connection= ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement preparedStatement=connection.prepareStatement(sql);
+        preparedStatement.setString(1, pcode);
+        @Cleanup ResultSet resultSet=preparedStatement.executeQuery();
+
+        int cnt=0;
+        if(resultSet.next()) {
+            cnt=resultSet.getInt(1);
+            System.out.println("dao cnt: "+cnt);
+        }
+        return cnt;
+    }
+
+    public QnABoardVO selectQnABoardByQno(String pcode, int qno) throws Exception {
+        // qna 세부 페이지
+        String sql="select * from qna_board where pcode=? and qno=?";
+        @Cleanup Connection connection= ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement preparedStatement=connection.prepareStatement(sql);
+        preparedStatement.setString(1, pcode);
+        preparedStatement.setInt(2, qno);
+        @Cleanup ResultSet resultSet=preparedStatement.executeQuery();
+
+        QnABoardVO qnABoardVO=null;
+        if(resultSet.next()) {
+            qnABoardVO=QnABoardVO.builder()
+                    .pcode(pcode)
+                    .questionDate(resultSet.getString("questionDate"))
+                    .answerDate(resultSet.getString("questionDate"))
+                    .questionSubject(resultSet.getString("questionSubject"))
+                    .questionContent(resultSet.getString("questionContent"))
+                    .qno(qno)
+                    .answerContent(resultSet.getString("answerContent"))
+                    .answered(resultSet.getBoolean("answered"))
+                    .emailId(resultSet.getString("emailId"))
+                    .build();
+        }
+        return qnABoardVO;
+
+    }
+
+    public List<QnABoardVO> selectQnAByPcode(String pcode, int currentPage, int limit) throws Exception {
+        // pcode에 따른 qna 리스트
+        String sql="select * from qna_board where pcode=? order by qno limit ?,?";
+
+        int beginRow=(currentPage-1)*limit;
+
+        @Cleanup Connection connection= ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement preparedStatement=connection.prepareStatement(sql);
+        preparedStatement.setString(1, pcode);
+        preparedStatement.setInt(2, beginRow);
+        preparedStatement.setInt(3, limit);
+        System.out.println("qnaBoardList 목록 출력 : "+preparedStatement);
+        @Cleanup ResultSet resultSet=preparedStatement.executeQuery();
+
+        ArrayList<QnABoardVO> qnaList=new ArrayList<>();
+        while(resultSet.next()) {
+            QnABoardVO qnABoardVO= QnABoardVO.builder()
+                    .pcode(resultSet.getString("pcode"))
+                    .questionDate(resultSet.getString("questionDate"))
+                    .answerDate(resultSet.getString("questionDate"))
+                    .questionSubject(resultSet.getString("questionSubject"))
+                    .questionContent(resultSet.getString("questionContent"))
+                    .qno(resultSet.getInt("qno"))
+                    .answerContent(resultSet.getString("answerContent"))
+                    .answered(resultSet.getBoolean("answered"))
+                    .emailId(resultSet.getString("emailId"))
+                    .secreted(resultSet.getBoolean("secreted"))
+                    .build();
+            qnaList.add(qnABoardVO);
+        }
+
+        return qnaList;
+    }
+
+
+    public void insertQnABoard(QnABoardVO qnaBoardVO) throws Exception {
+        String sql="insert into qna_board (emailId, pcode, questionSubject, questionContent, secreted, questionDate) "+
+                "values(?,?,?,?,?,now())";
+        @Cleanup Connection connection= ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement preparedStatement=connection.prepareStatement(sql);
+
+        preparedStatement.setString(1, qnaBoardVO.getEmailId());
+        preparedStatement.setString(2, qnaBoardVO.getPcode());
+        preparedStatement.setString(3, qnaBoardVO.getQuestionSubject());
+        preparedStatement.setString(4, qnaBoardVO.getQuestionContent());
+        preparedStatement.setBoolean(5, qnaBoardVO.isSecreted());
+        preparedStatement.executeUpdate();
+    }
+
+    public void updateQuestionBoard(QnABoardVO qnaBoardVO) throws Exception {
+        String sql="update qna_board set questionSubject=?, questionContent=? where qno=?";
+
+        @Cleanup Connection connection= ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement preparedStatement=connection.prepareStatement(sql);
+
+        preparedStatement.setString(1, qnaBoardVO.getQuestionSubject());
+        preparedStatement.setString(2, qnaBoardVO.getQuestionContent());
+        preparedStatement.setInt(3, qnaBoardVO.getQno());
+
+        preparedStatement.executeUpdate();
+    }
+
+    public void updateAnswerBoard(QnABoardVO qnaBoardVO) throws Exception {
+        String sql="update qna_board set answerContent=?, answerDate=now(), answered=? where qno=?";
+
+        @Cleanup Connection connection= ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement preparedStatement=connection.prepareStatement(sql);
+
+        preparedStatement.setString(1, qnaBoardVO.getAnswerContent());
+        preparedStatement.setBoolean(2, true);
+        preparedStatement.setInt(3, qnaBoardVO.getQno());
+
+        preparedStatement.executeUpdate();
+    }
+
+
+    public void deleteQnABoard(int qno) throws Exception {
+        String sql="delete from qna_board where qno=?";
+
+        @Cleanup Connection connection= ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement preparedStatement=connection.prepareStatement(sql);
+
+        preparedStatement.setInt(1, qno);
+        preparedStatement.executeUpdate();
+    }
+
+}
