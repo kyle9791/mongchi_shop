@@ -57,7 +57,8 @@
         <div class="row justify-content-center"></div>
         <div class="row">
           <div class="col-md-12">
-            <h3 class="h5 mb-4 text-center"></h3>
+            <h3 class="h5 mb-4 text-center">질문</h3>
+
                 <form id="modifyQuestionForm" action="/qnaBoard/modifyQuestion" method="post">
                   <p><input type="hidden" name="qno" value="${qnABoardDTO.qno}" ></p>
                   <p><input type="hidden" name="pcode" value="${qnABoardDTO.pcode}" ></p>
@@ -66,19 +67,22 @@
                   <input type="checkbox" name="secreted"><label>&nbsp;비밀글 설정&nbsp;</label>
                   <button type="submit">수정</button>
                 </form>
+
+            <hr>
+
+            <%--  답변 등록 영역--%>
+            <h3 class="h5 mb-4 text-center">답변</h3>
+            <form id="modifyAnswerForm" action="/qnaBoard/modifyAnswer" method="post">
+              <input type="hidden" name="qno" value="${qnABoardDTO.qno}">
+              <textarea name="answerContent"></textarea>
+              <button type="submit">답변 등록</button>
+            </form>
           </div>
         </div>
       </div>
     </section>
   </div>
 
-<%--  답변 등록 영역--%>
-<%--  <form id="modifyAnswerForm" action="/qnaBoard/modifyAnswer" method="post">--%>
-<%--    <input type="hidden" name="qno" value="${qnABoardDTO.qno}">--%>
-<%--    <textarea name="answerContent"></textarea>--%>
-<%--    ${qnABoardDTO.answerDate}--%>
-<%--    <button type="submit">답변 등록</button>--%>
-<%--  </form>--%>
 
   <script src="/js/bootstrap.bundle.min.js"></script>
   <script src="/js/tiny-slider.js"></script>
