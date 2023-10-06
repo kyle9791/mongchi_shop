@@ -10,7 +10,8 @@ import lombok.*;
 public class QnABoardVO {
     private int qno;    // qna 게시글 번호
     private String emailId;     // qna 작성자 아이디
-    private String pcode;   // 상품 코드
+    private int pno;   // 상품 코드
+    private String productName; // 상품 이름
     private String questionContent;     // 질문 내용
     private String questionDate;    // 질문 작성 날짜
     private String answerContent;   // 답변 내용

@@ -1,4 +1,4 @@
-package com.example.controller;
+package com.example.controller.qna;
 
 import com.example.dto.QnABoardDTO;
 import com.example.service.QnABoardService;
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Log4j2
-@WebServlet(name="qnaBoardModifyQuestionController", value="/qnaBoard/modifyQuestion")
+@WebServlet("/qnaBoard/modifyQuestion")
 public class QnABoardModifyQuestionController extends HttpServlet {
 
     private final QnABoardService qnABoardService=QnABoardService.INSTANCE;
@@ -21,9 +21,13 @@ public class QnABoardModifyQuestionController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int qno=Integer.parseInt(req.getParameter("qno"));
-        String pcode=req.getParameter("pcode");
+        log.info("qno : " + qno);
+        int pno = Integer.parseInt(req.getParameter("pno"));
+        log.info("pno : " + pno);
+
         try {
-            QnABoardDTO qnABoardDTO=qnABoardService.getQnABoardByQno(pcode, qno);
+            QnABoardDTO qnABoardDTO = qnABoardService.getQnABoardByQno(pno, qno);
+            log.info("qnABoardDTO : " + qnABoardDTO);
             req.setAttribute("qnABoardDTO", qnABoardDTO);
             req.getRequestDispatcher("/WEB-INF/qnaBoard/modify.jsp").forward(req, resp);
         } catch (Exception e) {
@@ -39,7 +43,7 @@ public class QnABoardModifyQuestionController extends HttpServlet {
         req.setCharacterEncoding("utf-8");
 
         try {
-            log.info("/qnaBoard/modifyAnswer POST");
+            log.info("/qnaBoard/modifyQuestion POST");
             BeanUtils.populate(qnABoardDTO, req.getParameterMap());
             log.info(qnABoardDTO);
             qnABoardService.modifyQuestionBoard(qnABoardDTO);
@@ -47,7 +51,6 @@ public class QnABoardModifyQuestionController extends HttpServlet {
             log.info(e.getMessage());
             throw new ServletException("QnABoardModifyQuestionController POST error");
         }
-
-        resp.sendRedirect("/list.jsp");
+        resp.sendRedirect("/qnaBoard/qnaList?pno=1111");
     }
 }

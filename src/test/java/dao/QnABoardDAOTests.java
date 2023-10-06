@@ -6,9 +6,6 @@ import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
-import java.util.List;
-
 @Log4j2
 public class QnABoardDAOTests {
     private QnABoardDAO qnABoardDAO;
@@ -20,10 +17,10 @@ public class QnABoardDAOTests {
     public void testInsertQnABoard() throws Exception {
         for(int i=1; i<=100; i++) {
             QnABoardVO qnABoardVO=QnABoardVO.builder()
-                    .pcode("p126")
-                    .emailId("ccc000")
-                    .questionSubject("별로")
-                    .questionContent("별로임")
+                    .pno(1111)
+                    .emailId("aaa000")
+                    .questionContent("별로")
+                    .productName("흠")
                     .secreted(false)
                     .build();
             qnABoardDAO.insertQnABoard(qnABoardVO);
@@ -35,7 +32,6 @@ public class QnABoardDAOTests {
     public void testUpdateQuestionBoard() throws Exception {
         QnABoardVO qnABoardVO=QnABoardVO.builder()
                 .qno(4)
-                .questionSubject("흠 별로")
                 .questionContent("받은 지 이틀도 안 됐는데 벌써 고장남")
                 .build();
         qnABoardDAO.updateQuestionBoard(qnABoardVO);
@@ -58,10 +54,10 @@ public class QnABoardDAOTests {
 
     @Test
     public void testSelectQnABoardByQno() throws Exception {
-        String pcode="p123";
+        int pno=1111;
         int qno=1;
-        QnABoardVO qnABoardVO=qnABoardDAO.selectQnABoardByQno(pcode, qno);
-        System.out.println(qnABoardDAO.selectQnABoardByQno(pcode, qno));
+        QnABoardVO qnABoardVO=qnABoardDAO.selectQnABoardByQno(pno, qno);
+        System.out.println(qnABoardDAO.selectQnABoardByQno(pno, qno));
     }
 
 

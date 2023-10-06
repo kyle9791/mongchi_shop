@@ -1,8 +1,9 @@
-package com.example.controller;
+package com.example.controller.qna;
 
 import com.example.dto.QnABoardDTO;
 import com.example.service.QnABoardService;
 import lombok.extern.log4j.Log4j2;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Log4j2
-@WebServlet(name="qnaBoardListController", value="/qnaBoard/qnaList")
+@WebServlet("/qnaBoard/qnaList")
 public class QnABoardListController extends HttpServlet {
 
     final int ROW_PER_PAGE = 10; // 페이지에 보일 주문 개수
@@ -24,17 +25,17 @@ public class QnABoardListController extends HttpServlet {
 
         int currentPage = 1;
         int limit=ROW_PER_PAGE;
-        if(req.getParameter("currentPage")!=null){
+        if(req.getParameter("currentPage") != null){
             currentPage = Integer.parseInt(req.getParameter("currentPage"));
         }
 
-        String pcode=req.getParameter("pcode");
-        log.info(pcode);
+        int pno = Integer.parseInt(req.getParameter("pno"));
+        log.info(pno);
 
         try {
-            int totalRecord=qnaBoardService.getAllQnAListCount(pcode);
+            int totalRecord=qnaBoardService.getAllQnAListCount(pno);
             log.info(totalRecord);
-            List<QnABoardDTO> qnABoardDTOList=qnaBoardService.getQnABoardByPcode(pcode, currentPage, limit);
+            List<QnABoardDTO> qnABoardDTOList=qnaBoardService.getQnABoardByPno(pno, currentPage, limit);
             for(QnABoardDTO dto:qnABoardDTOList) {
                 log.info(dto.isSecreted());
             }

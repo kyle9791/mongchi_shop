@@ -7,6 +7,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <link href="/css/tiny-slider.css" rel="stylesheet">
   <link href="/css/style.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/dc88001a08.js" crossorigin="anonymous"></script>
     <title>qna</title>
 </head>
 <body>
@@ -22,9 +23,6 @@
   int lastPage=thisBlock*pagePerBlock; // 블럭의 마지막 페이지
   lastPage=(lastPage>totalPage)?totalPage:lastPage;
 
-  String emailId="d";
-
-
 //  MemberDTO memberDTO=session.getAttribute("loginInfo");
 //  String emailId=memberDTO.getEmailId();
 %>
@@ -35,11 +33,10 @@
 <!-- 제목 영역 시작 -->
 <div class="hero">
   <div class="container">
-    <h1><span class="d-block">p126의 QnA 목록</span></h1>
+    <h1 class="font-apply"><span class="d-block">QnA 목록</span></h1>
   </div>
 </div>
 <!-- 제목 영역 끝 -->
-
 
 <section class="ftco-section">
   <div class="container">
@@ -62,44 +59,48 @@
 
             <tbody>
             <c:forEach var="qnaDto" items="${qnABoardDTOList}">
-            <tr data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-              <td>${qnaDto.isAnswered() ? "답변 완료" : "미답변"}</td>
-              <td>${qnaDto.getEmailId()}</td>
-              <c:if test="${qnaDto.secreted == true}">
-                <c:choose>
-                  <c:when test="${qnaDto.emailId eq 'd'}">
-                    <td>${qnaDto.questionContent}</td>
-                  </c:when>
-                  <c:otherwise>
-                    <td><i class="fa-solid fa-lock"></i>&nbsp;비밀글입니다</td>
-                  </c:otherwise>
-                </c:choose>
-              </c:if>
-              <c:if test="${qnaDto.secreted == false}">
-                <td>${qnaDto.questionContent}</td>
-              </c:if>
-              <td>${qnaDto.getQuestionDate()}</td>
-            </tr>
+              <tr>
+                <td>${qnaDto.isAnswered() ? "답변 완료" : "미답변"}</td>
+                <td>${qnaDto.getEmailId()}</td>
+                <c:if test="${qnaDto.secreted == true}">
+                  <c:choose>
+                    <c:when test="${qnaDto.emailId eq 'd'}">
+                      <td>${qnaDto.questionContent}</td>
+                    </c:when>
+                    <c:otherwise>
+                      <td><i class="fa-solid fa-lock"></i>&nbsp;비밀글입니다</td>
+                    </c:otherwise>
+                  </c:choose>
+                </c:if>
+                <c:if test="${qnaDto.secreted == false}">
+                  <td>${qnaDto.questionContent}</td>
+                </c:if>
+                <td>${qnaDto.getQuestionDate()}</td>
+                <c:if test="${qnaDto.answered == false}">
+                  <td><button><a href="/qnaBoard/modifyQuestion?pno=${qnaDto.pno}&qno=${qnaDto.qno}" class="text-white">수정</a></button></td>
+                </c:if>
+                <td><a href="/qnaBoard/remove?qno=${qnaDto.qno}">x</a></td>
+              </tr>
             </c:forEach>
 
-<%--              답변 영역 --%>
+            <%-- 답변 영역 --%>
             <c:forEach var="qnaDto" items="${qnABoardDTOList}">
-            <tr>
-                  <c:if test="${qnaDto.secreted == true && qnaDto.answered == true}">
-                    <c:choose>
-                      <c:when test="${qnaDto.emailId eq 'd'}">
-                        <td colspan="6">${qnaDto.questionContent}</td>
-                        <td colspan="6">${qnaDto.answerContent}</td>
-                        <td colspan="6">${qnaDto.answerDate}</td>
-                      </c:when>
-                    </c:choose>
-                  </c:if>
+              <tr>
+                <c:if test="${qnaDto.secreted == true && qnaDto.answered == true}">
+                  <c:choose>
+                    <c:when test="${qnaDto.emailId eq 'd'}">
+                      <td colspan="6">${qnaDto.questionContent}</td>
+                      <td colspan="6">${qnaDto.answerContent}</td>
+                      <td colspan="6">${qnaDto.answerDate}</td>
+                    </c:when>
+                  </c:choose>
+                </c:if>
                 <c:if test="${qnaDto.secreted == false && qnaDto.answered == true}">
                   <td>${qnaDto.questionContent}</td>
                   <td>${qnaDto.answerContent}</td>
                   <td>${qnaDto.answerDate}</td>
                 </c:if>
-            </tr>
+              </tr>
             </c:forEach>
             </tbody>
           </table>

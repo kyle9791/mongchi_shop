@@ -1,4 +1,4 @@
-package com.example.controller;
+package com.example.controller.qna;
 
 import com.example.dto.QnABoardDTO;
 import com.example.service.QnABoardService;
@@ -11,11 +11,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.time.LocalDate;
 
 @Log4j2
-@WebServlet(name="qnaBoardAddController", value="/qnaBoard/add")
+@WebServlet("/qnaBoard/add")
 public class QnABoardAddController extends HttpServlet {
     private final QnABoardService qnaBoardService=QnABoardService.INSTANCE;
 
@@ -26,9 +24,8 @@ public class QnABoardAddController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        QnABoardDTO qnABoardDTO=new QnABoardDTO();
-        resp.setContentType("text/html; charset=utf-8");
-        req.setCharacterEncoding("utf-8");
+        QnABoardDTO qnABoardDTO = new QnABoardDTO();
+        int pno = Integer.parseInt(req.getParameter("pno"));
 
         try {
             BeanUtils.populate(qnABoardDTO, req.getParameterMap());
@@ -41,6 +38,6 @@ public class QnABoardAddController extends HttpServlet {
             throw new ServletException("ADD error");
         }
 
-        resp.sendRedirect("../list.jsp");
+        resp.sendRedirect("/qnaBoard/qnaList?pno=" + pno);
     }
 }

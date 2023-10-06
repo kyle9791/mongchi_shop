@@ -5,11 +5,8 @@ import com.example.domain.QnABoardVO;
 import com.example.dto.QnABoardDTO;
 import com.example.util.MapperUtil;
 import lombok.extern.log4j.Log4j2;
-import org.apache.commons.beanutils.BeanUtils;
 import org.modelmapper.ModelMapper;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.Part;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,23 +21,27 @@ public enum QnABoardService {
         modelMapper= MapperUtil.INSTANCE.getInstance();
     }
 
-    public QnABoardDTO getQnABoardByQno(String pcode, int qno) throws Exception {
-        QnABoardVO qnABoardVO=qnABoardDAO.selectQnABoardByQno(pcode, qno);
-        QnABoardDTO qnABoardDTO=modelMapper.map(qnABoardVO, QnABoardDTO.class);
+    public QnABoardDTO getQnABoardByQno(int pno, int qno) throws Exception {
+        log.info("pcode: " + pno);
+        log.info("qno: " + qno);
+        QnABoardVO qnABoardVO = qnABoardDAO.selectQnABoardByQno(pno, qno);
+        log.info(qnABoardVO);
+        QnABoardDTO qnABoardDTO = modelMapper.map(qnABoardVO, QnABoardDTO.class);
+        log.info("qnABoardDTO: " + qnABoardDTO);
         return qnABoardDTO;
     }
 
-    public int getAllQnAListCount(String pcode) throws Exception {
+    public int getAllQnAListCount(int pno) throws Exception {
         // 전체 qna수 가져오기
-        int cnt=qnABoardDAO.getQnAListCount(pcode);
+        int cnt=qnABoardDAO.getQnAListCount(pno);
         log.info("service cnt"+cnt);
         return cnt;
     }
 
-    public List<QnABoardDTO> getQnABoardByPcode(String pcode, int currentPage, int limit) throws Exception {
+    public List<QnABoardDTO> getQnABoardByPno(int pno, int currentPage, int limit) throws Exception {
 
-        List<QnABoardVO> qnABoardVOList=qnABoardDAO.selectQnAByPcode(pcode, currentPage, limit);
-        List<QnABoardDTO> qnABoardDTOList=new ArrayList<>();
+        List<QnABoardVO> qnABoardVOList = qnABoardDAO.selectQnAByPno(pno, currentPage, limit);
+        List<QnABoardDTO> qnABoardDTOList = new ArrayList<>();
 
 
         for(QnABoardVO vo:qnABoardVOList) {
@@ -50,12 +51,17 @@ public enum QnABoardService {
     }
 
     public void addQnABoard(QnABoardDTO qnaBoardDTO) throws Exception {
-        QnABoardVO qnABoardVO=modelMapper.map(qnaBoardDTO, QnABoardVO.class);
+        log.info("addQnaBoard...");
+        log.info("qnaBoardDTO : " + qnaBoardDTO);
+        QnABoardVO qnABoardVO = modelMapper.map(qnaBoardDTO, QnABoardVO.class);
+        log.info("qnaBoardVO : " + qnABoardVO);
         qnABoardDAO.insertQnABoard(qnABoardVO);
     }
 
     public void modifyQuestionBoard(QnABoardDTO qnaBoardDTO) throws Exception {
-        QnABoardVO qnABoardVO=modelMapper.map(qnaBoardDTO, QnABoardVO.class);
+        log.info("qnaBoardDTO: " + qnaBoardDTO);
+        QnABoardVO qnABoardVO = modelMapper.map(qnaBoardDTO, QnABoardVO.class);
+        log.info("qnaBoardVO: " + qnABoardVO);
         qnABoardDAO.updateQuestionBoard(qnABoardVO);
     }
 

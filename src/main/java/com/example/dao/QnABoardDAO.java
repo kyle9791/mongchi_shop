@@ -1,7 +1,6 @@
 package com.example.dao;
 
 import com.example.domain.QnABoardVO;
-import com.example.util.ConnectionUtil;
 import lombok.Cleanup;
 
 import java.sql.Connection;
@@ -13,12 +12,12 @@ import java.util.List;
 
 public class QnABoardDAO {
 
-    public int getQnAListCount(String pcode) throws Exception {
+    public int getQnAListCount(int pno) throws Exception {
 
-        String sql="select count(*) from qna_board where pcode=?";
+        String sql="select count(*) from qna_board where pno=?";
         @Cleanup Connection connection= ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement preparedStatement=connection.prepareStatement(sql);
-        preparedStatement.setString(1, pcode);
+        preparedStatement.setInt(1, pno);
         @Cleanup ResultSet resultSet=preparedStatement.executeQuery();
 
         int cnt=0;
@@ -29,19 +28,19 @@ public class QnABoardDAO {
         return cnt;
     }
 
-    public QnABoardVO selectQnABoardByQno(String pcode, int qno) throws Exception {
+    public QnABoardVO selectQnABoardByQno(int pno, int qno) throws Exception {
         // qna 세부 페이지
-        String sql="select * from qna_board where pcode=? and qno=?";
+        String sql="select * from qna_board where pno=? and qno=?";
         @Cleanup Connection connection= ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement preparedStatement=connection.prepareStatement(sql);
-        preparedStatement.setString(1, pcode);
+        preparedStatement.setInt(1, pno);
         preparedStatement.setInt(2, qno);
         @Cleanup ResultSet resultSet=preparedStatement.executeQuery();
 
-        QnABoardVO qnABoardVO=null;
+        QnABoardVO qnABoardVO = null;
         if(resultSet.next()) {
-            qnABoardVO=QnABoardVO.builder()
-                    .pcode(pcode)
+            qnABoardVO = QnABoardVO.builder()
+                    .pno(pno)
                     .questionDate(resultSet.getString("questionDate"))
                     .answerDate(resultSet.getString("answerDate"))
                     .questionContent(resultSet.getString("questionContent"))
@@ -55,15 +54,15 @@ public class QnABoardDAO {
 
     }
 
-    public List<QnABoardVO> selectQnAByPcode(String pcode, int currentPage, int limit) throws Exception {
+    public List<QnABoardVO> selectQnAByPno(int pno, int currentPage, int limit) throws Exception {
         // pcode에 따른 qna 리스트
-        String sql="select * from qna_board where pcode=? order by qno limit ?,?";
+        String sql="select * from qna_board where pno=? order by qno limit ?,?";
 
         int beginRow=(currentPage-1)*limit;
 
         @Cleanup Connection connection= ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement preparedStatement=connection.prepareStatement(sql);
-        preparedStatement.setString(1, pcode);
+        preparedStatement.setInt(1, pno);
         preparedStatement.setInt(2, beginRow);
         preparedStatement.setInt(3, limit);
         System.out.println("qnaBoardList 목록 출력 : "+preparedStatement);
@@ -72,7 +71,7 @@ public class QnABoardDAO {
         ArrayList<QnABoardVO> qnaList=new ArrayList<>();
         while(resultSet.next()) {
             QnABoardVO qnABoardVO= QnABoardVO.builder()
-                    .pcode(resultSet.getString("pcode"))
+                    .pno(resultSet.getInt("pno"))
                     .questionDate(resultSet.getString("questionDate"))
                     .answerDate(resultSet.getString("answerDate"))
                     .questionContent(resultSet.getString("questionContent"))
@@ -90,20 +89,21 @@ public class QnABoardDAO {
 
 
     public void insertQnABoard(QnABoardVO qnaBoardVO) throws Exception {
-        String sql="insert into qna_board (emailId, pcode, questionContent, secreted, questionDate) "+
-                "values(?,?,?,?,now())";
+        String sql="insert into qna_board (emailId, pno, productName, questionContent, secreted, questionDate) "+
+                "values(?, ?, ?, ?, ?, now())";
         @Cleanup Connection connection= ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement preparedStatement=connection.prepareStatement(sql);
 
         preparedStatement.setString(1, qnaBoardVO.getEmailId());
-        preparedStatement.setString(2, qnaBoardVO.getPcode());
-        preparedStatement.setString(3, qnaBoardVO.getQuestionContent());
-        preparedStatement.setBoolean(4, qnaBoardVO.isSecreted());
+        preparedStatement.setInt(2, qnaBoardVO.getPno());
+        preparedStatement.setString(3, qnaBoardVO.getProductName());
+        preparedStatement.setString(4, qnaBoardVO.getQuestionContent());
+        preparedStatement.setBoolean(5, qnaBoardVO.isSecreted());
         preparedStatement.executeUpdate();
     }
 
     public void updateQuestionBoard(QnABoardVO qnaBoardVO) throws Exception {
-        String sql="update qna_board set questionContent=?, secreted=? where qno=?";
+        String sql="update qna_board set questionContent=?, secreted = ? where qno=?";
 
         @Cleanup Connection connection= ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement preparedStatement=connection.prepareStatement(sql);

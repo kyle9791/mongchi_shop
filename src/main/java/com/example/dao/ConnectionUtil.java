@@ -1,4 +1,4 @@
-package com.example.util;
+package com.example.dao;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -12,7 +12,7 @@ public enum ConnectionUtil {
     private final HikariDataSource dataSource;
 
     ConnectionUtil() {
-        HikariConfig config=new HikariConfig();
+        HikariConfig config = new HikariConfig();
         config.setDriverClassName("org.mariadb.jdbc.Driver");
         config.setJdbcUrl("jdbc:mariadb://localhost:3306/sample_mongchi_market");
         config.setUsername("root");
@@ -21,7 +21,7 @@ public enum ConnectionUtil {
         config.addDataSourceProperty("prepStmtCacheSize", "250");
         config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048");
 
-        dataSource=new HikariDataSource(config);
+        dataSource = new HikariDataSource(config);
     }
 
     public Connection getConnection() throws SQLException {

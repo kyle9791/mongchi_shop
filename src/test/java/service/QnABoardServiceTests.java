@@ -17,29 +17,29 @@ public class QnABoardServiceTests {
 
     @Test
     public void testGetQnABoardByQno() throws Exception {
-        String pcode="p123";
+        int pno=1111;
         int qno=1;
-        log.info(qnABoardService.getQnABoardByQno(pcode, qno));
+        log.info(qnABoardService.getQnABoardByQno(pno, qno));
     }
 
-    @Test
-    public void testGetQnABoardByPcode() throws Exception {
-        String pcode="p126";
-        int startRow=11;
-        int pageSize=10;
-        List<QnABoardDTO> qnABoardDTOList=qnABoardService.getQnABoardByPcode(pcode, startRow, pageSize);
-        for(QnABoardDTO qnABoardDTO:qnABoardDTOList) {
-            log.info(qnABoardDTO);
-        }
-    }
+//    @Test
+//    public void testGetQnABoardByPcode() throws Exception {
+//        int pno=1111;
+//        int startRow=11;
+//        int pageSize=10;
+//        List<QnABoardDTO> qnABoardDTOList=qnABoardService.getQnABoardByPcode(pno, startRow, pageSize);
+//        for(QnABoardDTO qnABoardDTO:qnABoardDTOList) {
+//            log.info(qnABoardDTO);
+//        }
+//    }
 
     @Test
     public void testAddQnABoard() throws Exception {
         QnABoardDTO qnABoardDTO=QnABoardDTO.builder()
                 .emailId("zzz123")
-                .pcode("p129")
-                .questionSubject("안뇽하세여")
+                .pno(1111)
                 .questionContent("안뇽하세요")
+                .productName("흠")
                 .build();
         qnABoardService.addQnABoard(qnABoardDTO);
     }
@@ -49,7 +49,6 @@ public class QnABoardServiceTests {
         QnABoardDTO qnABoardDTO=QnABoardDTO.builder()
                 .qno(5)
                 .questionContent("헤헤")
-                .questionSubject("하하")
                 .build();
         qnABoardService.modifyQuestionBoard(qnABoardDTO);
     }

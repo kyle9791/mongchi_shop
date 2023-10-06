@@ -1,4 +1,4 @@
-package com.example.controller;
+package com.example.controller.qna;
 
 import com.example.dto.QnABoardDTO;
 import com.example.service.QnABoardService;
@@ -13,18 +13,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Log4j2
-@WebServlet(name="qnaBoardModifyAnswerController", value="/qnaBoard/modifyAnswer")
+@WebServlet("/qnaBoard/modifyAnswer")
 public class QnABoardModifyAnswerController extends HttpServlet {
-    private final QnABoardService qnABoardService=QnABoardService.INSTANCE;
+    private final QnABoardService qnABoardService = QnABoardService.INSTANCE;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int qno=Integer.parseInt(req.getParameter("qno"));
-        String pcode=req.getParameter("pcode");
+        int qno = Integer.parseInt(req.getParameter("qno"));
+        int pno = Integer.parseInt(req.getParameter("pno"));
         try {
-            QnABoardDTO qnABoardDTO=qnABoardService.getQnABoardByQno(pcode, qno);
+            QnABoardDTO qnABoardDTO=qnABoardService.getQnABoardByQno(pno, qno);
             req.setAttribute("qnABoardDTO", qnABoardDTO);
-            req.getRequestDispatcher("/WEB-INF/qnaBoard/modify.jsp").forward(req, resp);
+            req.getRequestDispatcher("/WEB-INF/qnaBoard/answer.jsp").forward(req, resp);
         } catch (Exception e) {
             log.error(e.getMessage());
             throw new ServletException("QnABoardService GET error");
@@ -33,7 +33,7 @@ public class QnABoardModifyAnswerController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        QnABoardDTO qnABoardDTO=new QnABoardDTO();
+        QnABoardDTO qnABoardDTO = new QnABoardDTO();
         resp.setContentType("text/html; charset=utf-8");
         req.setCharacterEncoding("utf-8");
 
@@ -47,6 +47,6 @@ public class QnABoardModifyAnswerController extends HttpServlet {
             throw new ServletException("QnABoardModifyAnswerController POST error");
         }
 
-        resp.sendRedirect("../list.jsp");
+        resp.sendRedirect("/qnaBoard/qnaList?pcode=P1111");
     }
 }

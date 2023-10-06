@@ -7,47 +7,13 @@
   <link href="/css/tiny-slider.css" rel="stylesheet">
   <link href="/css/style.css" rel="stylesheet">
 </head>
-
-<style>
-  input[type=text]{
-    width: 500px;
-    height: 32px;
-    font-size: 15px;
-    border: 0;
-    border-radius: 15px;
-    outline: none;
-    padding-left: 10px;
-    background-color: rgb(233, 233, 233);
-  }
-  textarea {
-    width: 500px;
-    height: 100px;
-    font-size: 15px;
-    border: 0;
-    border-radius: 15px;
-    outline: none;
-    padding-left: 10px;
-    background-color: rgb(233, 233, 233);
-  }
-  .center {
-    text-align: center;
-  }
-  button {
-    width: 100px;
-    height: 30px;
-    background: darkslategray;
-    color: white;
-    border: none;
-  }
-</style>
-
 <body>
 
   <jsp:include page="../inc/menu.jsp"/>
 
   <div class="hero">
     <div class="container">
-      <h1><span class="d-block">상품 Q&A 수정</span></h1>
+      <h1 class="font-apply"><span class="d-block">Q&A 수정</span></h1>
     </div>
   </div>
 
@@ -61,7 +27,7 @@
 
                 <form id="modifyQuestionForm" action="/qnaBoard/modifyQuestion" method="post">
                   <p><input type="hidden" name="qno" value="${qnABoardDTO.qno}" ></p>
-                  <p><input type="hidden" name="pcode" value="${qnABoardDTO.pcode}" ></p>
+                  <p><label>제품명&nbsp;</label><input type="text" name="productName" value="${qnABoardDTO.productName}"readonly></p>
                   <p><label>이메일&nbsp;</label><input type="text" name="emailId" value="${qnABoardDTO.emailId}" readonly></p>
                   <p><label>내용&nbsp;</label><textarea name="questionContent">${qnABoardDTO.questionContent}</textarea></p>
                   <input type="checkbox" name="secreted"><label>&nbsp;비밀글 설정&nbsp;</label>
@@ -71,12 +37,15 @@
             <hr>
 
             <%--  답변 등록 영역--%>
+              <c:if test="">
             <h3 class="h5 mb-4 text-center">답변</h3>
             <form id="modifyAnswerForm" action="/qnaBoard/modifyAnswer" method="post">
               <input type="hidden" name="qno" value="${qnABoardDTO.qno}">
               <textarea name="answerContent"></textarea>
               <button type="submit">답변 등록</button>
             </form>
+              </c:if>
+
           </div>
         </div>
       </div>
