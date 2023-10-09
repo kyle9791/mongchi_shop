@@ -1,4 +1,5 @@
 <%@ page import="java.util.List" %>
+<%@ page import="com.example.dto.MemberDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -15,6 +16,7 @@
   List qnABoardDTOList=(List) request.getAttribute("qnABoardDTOList");
   int currentPage=(Integer) request.getAttribute("currentPage");
   int totalPage=(Integer) request.getAttribute("totalPage");
+  int pno=(Integer)request.getAttribute("pno");
 
   int pagePerBlock=5; // 페이지 출력 시 나올 범위
   int totalBlock=totalPage%pagePerBlock==0 ? totalPage / pagePerBlock : totalPage / pagePerBlock+1; // 전체 블럭 수
@@ -23,8 +25,11 @@
   int lastPage=thisBlock*pagePerBlock; // 블럭의 마지막 페이지
   lastPage=(lastPage>totalPage)?totalPage:lastPage;
 
-//  MemberDTO memberDTO=session.getAttribute("loginInfo");
-//  String emailId=memberDTO.getEmailId();
+  MemberDTO memberDTO= (MemberDTO) session.getAttribute("loginInfo");
+  String sessionEmailId=null;
+  if(memberDTO!=null) {
+    sessionEmailId= memberDTO.getEmailId();
+  }
 %>
 
 
@@ -44,6 +49,7 @@
     <div class="row">
       <div class="col-md-12">
         <h3 class="h5 mb-4 text-center"></h3>
+
         <div>
           <table class="table myaccordion table-hover" id="accordion">
             <thead>
@@ -52,19 +58,20 @@
               <th>아이디</th>
               <th>내용</th>
               <th>작성일</th>
-              <th>&nbsp;</th>
+              <th>비고</th>
             </tr>
             </thead>
 
 
             <tbody>
             <c:forEach var="qnaDto" items="${qnABoardDTOList}">
+              <c:set var="sessionEmailId" value="<%=sessionEmailId%>"/>
               <tr>
                 <td>${qnaDto.isAnswered() ? "답변 완료" : "미답변"}</td>
                 <td>${qnaDto.getEmailId()}</td>
                 <c:if test="${qnaDto.secreted == true}">
                   <c:choose>
-                    <c:when test="${qnaDto.emailId eq 'd'}">
+                    <c:when test="${qnaDto.emailId eq sessionEmailId}">
                       <td>${qnaDto.questionContent}</td>
                     </c:when>
                     <c:otherwise>
@@ -76,31 +83,35 @@
                   <td>${qnaDto.questionContent}</td>
                 </c:if>
                 <td>${qnaDto.getQuestionDate()}</td>
-                <c:if test="${qnaDto.answered == false}">
+
+                <c:if test="${qnaDto.answered == false && (qnaDto.emailId eq sessionEmailId)}">
                   <td><button><a href="/qnaBoard/modifyQuestion?pno=${qnaDto.pno}&qno=${qnaDto.qno}" class="text-white">수정</a></button></td>
                 </c:if>
-                <td><a href="/qnaBoard/remove?qno=${qnaDto.qno}">x</a></td>
+                <c:if test="${qnaDto.emailId eq sessionEmailId}">
+                  <td><a href="/qnaBoard/remove?qno=${qnaDto.qno}">x</a></td>
+                </c:if>
+
               </tr>
             </c:forEach>
 
             <%-- 답변 영역 --%>
             <c:forEach var="qnaDto" items="${qnABoardDTOList}">
-              <tr>
+              <div>
                 <c:if test="${qnaDto.secreted == true && qnaDto.answered == true}">
                   <c:choose>
                     <c:when test="${qnaDto.emailId eq 'd'}">
-                      <td colspan="6">${qnaDto.questionContent}</td>
-                      <td colspan="6">${qnaDto.answerContent}</td>
-                      <td colspan="6">${qnaDto.answerDate}</td>
+                      <p>${qnaDto.questionContent}</p>
+                      <p>${qnaDto.answerContent}</p>
+                      <p>${qnaDto.answerDate}</p>
                     </c:when>
                   </c:choose>
                 </c:if>
                 <c:if test="${qnaDto.secreted == false && qnaDto.answered == true}">
-                  <td>${qnaDto.questionContent}</td>
-                  <td>${qnaDto.answerContent}</td>
-                  <td>${qnaDto.answerDate}</td>
+                  <p>${qnaDto.questionContent}</p>
+                  <p>${qnaDto.answerContent}</p>
+                  <p>${qnaDto.answerDate}</p>
                 </c:if>
-              </tr>
+              </div>
             </c:forEach>
             </tbody>
           </table>
@@ -111,23 +122,16 @@
 </section>
 
 
-
-
-
-
-
-<%--<div></div>--%>
-
 <!-- 페이지 -->
 <div style="text-align: center">
   <c:set var="currentPage" value="<%=currentPage%>"/>
 
-  <a href="/qnaBoard/qnaList?currentPage=1"/><span>처음</span></a>
+  <a href="/qnaBoard/qnaList?pno=<%=pno%>&currentPage=1"/><span>처음</span></a>
   <c:if test="${thisBlock>1}">
-    <a href="/qnaBoard/qnaList?currentPage=${firstPage-1}"/><span>이전</span></a>
+    <a href="/qnaBoard/qnaList?pno=<%=pno%>&currentPage=${firstPage-1}"/><span>이전</span></a>
   </c:if>
   <c:forEach var="i" begin="<%=firstPage%>" end="<%=lastPage%>">
-    <a href="/qnaBoard/qnaList?currentPage=${i}">
+    <a href="/qnaBoard/qnaList?pno=<%=pno%>&currentPage=${i}">
         <%--                    <a href="./boardList.do?pageNum=${i}&items=<%=items%>&text=<%=text%>">--%>
       <c:choose>
         <c:when test="${currentPage==i}">
@@ -141,9 +145,9 @@
   </c:forEach>
 
   <c:if test="${thisBlock<totalBlock}">
-    <a href="/qnaBoard/qnaList?currentPage=${lastPage+1}"/><span>다음</span></a>
+    <a href="/qnaBoard/qnaList?pno=<%=pno%>&currentPage=${lastPage+1}"/><span>다음</span></a>
   </c:if>
-  <a href="/qnaBoard/qnaList?currentPage=${totalPage}"/><span>마지막</span></a>
+  <a href="/qnaBoard/qnaList?pno=<%=pno%>&currentPage=${totalPage}"/><span>마지막</span></a>
 
   <script src="/js/bootstrap.bundle.min.js"></script>
   <script src="/js/tiny-slider.js"></script>
@@ -152,5 +156,6 @@
 </div>
 </div>
 </ul>
+
 </body>
 </html>

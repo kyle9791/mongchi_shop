@@ -28,7 +28,7 @@
                         <form action="/qnaBoard/add" method="post">
                             <p><label>상품 이름&nbsp;</label> <input type="text" name="productName" value="<%=request.getParameter("productName")%>" readonly></p>
                             <p><label>질문 내용&nbsp;</label> <textarea name="questionContent" placeholder="문의하실 내용을 입력해 주세요." required></textarea></p>
-                            <input type="hidden" name="emailId" value="abcd1234@naver.com">
+
                             <input type="hidden" name="pno" value="<%= request.getParameter("pno") %>">
                             <input type="checkbox" name="secreted"><label>&nbsp;비밀글 설정&nbsp;</label>
                             <button type="submit">전송</button>

@@ -7,6 +7,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="/css/tiny-slider.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
+
+
+
 </head>
 <body>
 
@@ -25,6 +28,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <h3 class="h5 mb-4 text-center"></h3>
+
+
 
                       <ul>
                           <li><c:out value="${productDTO.pcode}"/></li>

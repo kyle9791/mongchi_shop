@@ -1,5 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.example.dto.CartDTO" %>
+<%@ page import="java.util.List" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%
+    List<CartDTO> cartDTOList = (List<CartDTO>) session.getAttribute("cartDTOList");
+%>
 <html>
 <head>
     <title>장바구니</title>
@@ -27,9 +32,10 @@
                     <h3 class="h5 mb-4 text-center"></h3>
 
                         <ul>
+                            <button><a href="#" class="btn-selected text-white">선택 삭제</a></button>
+                            <button><a href="#" class="btn-order text-white">주문</a></button>
                             <form action="#" name="frmCart" method="get">
-                                <button><a href="#" class="btn-selected text-white">선택 삭제</a></button>
-                                <c:forEach var="cart" items="${cartDTOList}">
+                                <c:forEach var="cart" items="<%= cartDTOList %>">
                                     <li>
                                         <span><input type="checkbox" name="check" value="${cart.cno}"></span>
                                         <span>${cart}</span>
@@ -56,6 +62,13 @@
                     frmCart.submit();
                 }
             });
+
+            const btnOrder = document.querySelector(".btn-order");
+            btnOrder.addEventListener("click", function () {
+                frmCart.action = "/shippingInfo";
+                frmCart.submit();
+            });
+
         });
     </script>
 </body>

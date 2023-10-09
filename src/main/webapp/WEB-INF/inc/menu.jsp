@@ -27,6 +27,10 @@
     .font-apply {
         font-family: 'KIMM_Bold';
     }
+    ::-webkit-scrollbar { width: 16px; }
+    ::-webkit-scrollbar-track { background-color: #0c4128; }
+    ::-webkit-scrollbar-thumb { background-color: antiquewhite; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background-color: #20c997; }
 </style>
 <%
     MemberDTO memberDTO= (MemberDTO) session.getAttribute("loginInfo");

@@ -1,5 +1,6 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.dto.ProductDTO" %>
+<%@ page import="java.text.DecimalFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
@@ -20,7 +21,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="/css/tiny-slider.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
+
 </head>
+
 <body>
 
 <jsp:include page="../inc/menu.jsp"/>
@@ -31,35 +34,45 @@
     </div>
 </div>
 
-<div class="center">
-    <section class="ftco-section">
-        <div class="container">
-            <div class="row justify-content-center"></div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h3 class="h5 mb-4 text-center"></h3>
+<%
+    DecimalFormat formatter=new DecimalFormat("###,###.##");
+    for (int j = 0; j < productDTOList.size(); j++) {
+        ProductDTO product = productDTOList.get(j);
+%>
 
-                        <%
-                            for (int j = 0; j < productDTOList.size(); j++) {
-                                ProductDTO product = productDTOList.get(j);
-                        %>
+<div class="product-section">
+    <div class="container">
+        <div class="row">
 
-                            <ul style="list-style: none;">
-                    <%--            <li><%= product.getPno() %></li>--%>
-                    <%--            <li><%= product.getPcode() %></li>--%>
-                                <li><a href="/products/product?pno=<%= product.getPno() %>"><%= product.getProductName() %></a></li>
-                                <li><%= product.getUnitPrice() %></li>
-                                <li><%= product.getDescription() %></li>
-                                <li><%= product.getCategory() %></li>
-                                <li><%= product.getUnitsInstock() %></li>
-                                <li><img src="<%= product.getFileName() %>" alt="상품이미지" style="width: 100px"></li>
-                                <li><%= product.getAccumulatedOrders() %></li>
-                                <li><%= product.getReviewCount() %></li>
-                                <li><%= product.getAddDate() %></li>
-                            </ul>
-                        <%
-                            }
-                        %>
+            <div class="rowrow col-md-10 w-75">
+                <a class="product-item col-col" href="/products/product?pno=<%= product.getPno() %>">
+                    <img src="<%= product.getFileName() %>" alt="상품이미지" class="img-fluid product-thumbnail">
+                    <h3 class="product-title"><%= product.getProductName() %></h3>
+                    <strong class="product-price"><%= formatter.format(Integer.parseInt(String.valueOf(product.getReviewCount()))) %></strong>
+                    <p><label>리뷰&nbsp;</label><label><%= formatter.format(Integer.parseInt(String.valueOf(product.getUnitPrice()))) %>개</p>
+
+                    <span class="icon-cross">
+                    <img src="images/cross.svg" class="img-fluid">
+                    </span>
+                </a>
+            </div>
+                <%
+    }
+%>
+<%--                                <ul style="list-style: none;">--%>
+<%--                                    <li><%= product.getPno() %></li>--%>
+<%--                                    <li><%= product.getPcode() %></li>--%>
+<%--                                    <li><a href="/products/product?pno=<%= product.getPno() %>"><%= product.getProductName() %></a></li>--%>
+<%--                                    <li><%= product.getUnitPrice() %></li>--%>
+<%--                                    <li><%= product.getDescription() %></li>--%>
+<%--                                    <li><%= product.getCategory() %></li>--%>
+<%--                                    <li><%= product.getUnitsInstock() %></li>--%>
+<%--                                    <li><img src="<%= product.getFileName() %>" alt="상품이미지" style="width: 100px"></li>--%>
+<%--                                    <li><%= product.getAccumulatedOrders() %></li>--%>
+<%--                                    <li><%= product.getReviewCount() %></li>--%>
+<%--                                    <li><%= product.getAddDate() %></li>--%>
+<%--                                </ul>--%>
+
 
                         <%-- 페이지 번호 --%>
                         <div style="text-align: center">
@@ -88,11 +101,11 @@
                             <a href="/products?currentPage=${totalPage}">마지막</a>
                         </div>
 
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </section>--%>
+<%--</div>--%>
 
 <script src="/js/bootstrap.bundle.min.js"></script>
 <script src="/js/tiny-slider.js"></script>

@@ -36,9 +36,9 @@ public class QnABoardListController extends HttpServlet {
             int totalRecord=qnaBoardService.getAllQnAListCount(pno);
             log.info(totalRecord);
             List<QnABoardDTO> qnABoardDTOList=qnaBoardService.getQnABoardByPno(pno, currentPage, limit);
-            for(QnABoardDTO dto:qnABoardDTOList) {
-                log.info(dto.isSecreted());
-            }
+//            for(QnABoardDTO dto:qnABoardDTOList) {
+//                log.info(dto.isSecreted());
+//            }
 
             int totalPage;
             if(totalRecord%limit==0) {
@@ -58,6 +58,7 @@ public class QnABoardListController extends HttpServlet {
             log.info("qnABoardDTOList: " + qnABoardDTOList);
 
             req.setAttribute("ROW_PER_PAGE", ROW_PER_PAGE);
+            req.setAttribute("pno", pno);
             req.getRequestDispatcher("/WEB-INF/qnaBoard/qnaBoardList.jsp").forward(req, resp);
         } catch (Exception e) {
             log.info(e.getMessage());

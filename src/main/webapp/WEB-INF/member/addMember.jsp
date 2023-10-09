@@ -27,8 +27,8 @@
 
                         <form action="/addMember" method="post">
                             <p><label>이메일&nbsp;</label><input type="email" name="emailId"></p><span class="memberEmailCheck"></span>
-                            <p><label>비밀번호&nbsp;</label><input type="password" name="password"></p>
-                            <p><label>비밀번호 확인&nbsp;</label><input type="password" name="password2"></p><span class="passCheck"></span>
+                            <p><label>비밀번호&nbsp;</label><input type="password" name="password"></p><span class="passCheck"></span>
+                            <p><label>비밀번호 확인&nbsp;</label><input type="password" name="password2">
                            <p><label>이름&nbsp;</label><input type="text" name="memberName"></p>
                             <p><label>전화번호&nbsp;</label><input type="text" name="phone"></p>
                             <p><label>생일&nbsp;</label><input type="date" name="birthday"></p>

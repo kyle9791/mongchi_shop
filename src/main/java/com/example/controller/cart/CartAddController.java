@@ -1,6 +1,7 @@
 package com.example.controller.cart;
 
 import com.example.dto.CartDTO;
+import com.example.dto.MemberDTO;
 import com.example.service.CartService;
 import lombok.extern.log4j.Log4j2;
 
@@ -23,7 +24,8 @@ public class CartAddController extends HttpServlet {
 
         HttpSession session = req.getSession();
         String orderId = (String) session.getAttribute("orderId");
-        log.info(orderId);
+        MemberDTO memberDTO = (MemberDTO) session.getAttribute("loginInfo");
+        String emailId = memberDTO.getEmailId();
 
         int pno = Integer.parseInt(req.getParameter("pno"));
         log.info("pno: " + pno);

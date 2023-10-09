@@ -43,7 +43,7 @@ public class CartDAO {
             preparedStatement.executeUpdate();
         }
     }
-    
+
     public void updateOrderId(String orderId, String emailId) throws SQLException {
         // 주문번호 업데이트
         String sql = "update cart set orderId = ? where emailId = ? and orderId != ?";
@@ -81,7 +81,7 @@ public class CartDAO {
 
         return list;
     }
-    
+
     public void deleteCart(int cno) throws SQLException {
         // cno와 일치하는 데이터 삭제
         String sql = "delete from cart where cno = ?";
@@ -91,4 +91,15 @@ public class CartDAO {
         preparedStatement.setInt(1, cno);
         preparedStatement.executeUpdate();
     }
+
+    public void updateCnt(int cno, int cnt) throws SQLException {
+        // 전달받은 cnt 업데이트
+        String sql = "update cart set cnt = ? where cno = ?";
+        @Cleanup Connection connection = ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, cnt);
+        preparedStatement.setInt(2, cno);
+        preparedStatement.executeUpdate();
+    }
 }
+
