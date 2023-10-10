@@ -43,7 +43,8 @@
     <li>
         <button class="btn-add" type="button">장바구니 담기</button>
         <a href="/cart/list">장바구니로 이동</a>
-        <a href="/qnaBoard/add?pno=${productDTO.pno}&productName=${productDTO.productName}">상품문의 등록</a>
+        <a href="/qnaBoard/add?pno=${productDTO.pno}&productName=${productDTO.productName}">문의 등록</a>
+        <a href="/qnaBoard/qnaList?pno=${productDTO.pno}&productName=${productDTO.productName}">문의 목록</a>
     </li>
 </ul>
 

@@ -87,11 +87,6 @@
                     <a href="/products?currentPage=${totalPage}">마지막</a>
                 </div>
 
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
-<%--    </section>--%>
-<%--</div>--%>
 
 <script src="/js/bootstrap.bundle.min.js"></script>
 <script src="/js/tiny-slider.js"></script>

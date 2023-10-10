@@ -32,6 +32,18 @@
   }
 %>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+  $(function() {
+    $(".answerToggle").hide();
+
+    $(".toggle").on("click", function() {
+      $(this).next(".answerToggle").slideToggle();
+
+    });
+
+  });
+</script>
 
 <jsp:include page="../inc/menu.jsp"/>
 
@@ -66,7 +78,7 @@
             <tbody>
             <c:forEach var="qnaDto" items="${qnABoardDTOList}">
               <c:set var="sessionEmailId" value="<%=sessionEmailId%>"/>
-              <tr>
+              <tr class="toggle">
                 <td>${qnaDto.isAnswered() ? "답변 완료" : "미답변"}</td>
                 <td>${qnaDto.getEmailId()}</td>
                 <c:if test="${qnaDto.secreted == true}">
@@ -82,7 +94,7 @@
                 <c:if test="${qnaDto.secreted == false}">
                   <td>${qnaDto.questionContent}</td>
                 </c:if>
-                <td>${qnaDto.getQuestionDate()}</td>
+                  <td>${qnaDto.getQuestionDate()}</td>
 
                 <c:if test="${qnaDto.answered == false && (qnaDto.emailId eq sessionEmailId)}">
                   <td><button><a href="/qnaBoard/modifyQuestion?pno=${qnaDto.pno}&qno=${qnaDto.qno}" class="text-white">수정</a></button></td>
@@ -90,29 +102,31 @@
                 <c:if test="${qnaDto.emailId eq sessionEmailId}">
                   <td><a href="/qnaBoard/remove?qno=${qnaDto.qno}">x</a></td>
                 </c:if>
-
               </tr>
-            </c:forEach>
 
-            <%-- 답변 영역 --%>
-            <c:forEach var="qnaDto" items="${qnABoardDTOList}">
-              <div>
+              <tr class="answerToggle" style="word-break:break-all;">
                 <c:if test="${qnaDto.secreted == true && qnaDto.answered == true}">
                   <c:choose>
-                    <c:when test="${qnaDto.emailId eq 'd'}">
-                      <p>${qnaDto.questionContent}</p>
-                      <p>${qnaDto.answerContent}</p>
-                      <p>${qnaDto.answerDate}</p>
+                    <c:when test="${qnaDto.emailId eq sessionEmailId}">
+                      <td>&nbsp;</td>
+                      <td style="word-break:break-all;">${qnaDto.questionContent}</td>
+                      <br>
+                      <td>${qnaDto.answerContent}</td>
+                      <td>${qnaDto.answerDate}</td>
                     </c:when>
                   </c:choose>
                 </c:if>
                 <c:if test="${qnaDto.secreted == false && qnaDto.answered == true}">
-                  <p>${qnaDto.questionContent}</p>
-                  <p>${qnaDto.answerContent}</p>
-                  <p>${qnaDto.answerDate}</p>
+                  <td>&nbsp;</td>
+
+                  <td>${qnaDto.questionContent}</td>
+                  <td>${qnaDto.answerContent}</td>
+                  <td>${qnaDto.answerDate}</td>
                 </c:if>
-              </div>
+              </tr>
+
             </c:forEach>
+
             </tbody>
           </table>
         </div>
@@ -154,8 +168,10 @@
   <script src="/js/custom.js"></script>
   <jsp:include page="../inc/footer.jsp"/>
 </div>
-</div>
-</ul>
+
+<script>
+
+</script>
 
 </body>
 </html>
