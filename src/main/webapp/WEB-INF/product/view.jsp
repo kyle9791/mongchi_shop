@@ -1,3 +1,4 @@
+<%@ page import="java.text.DecimalFormat" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -7,9 +8,6 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <link href="/css/tiny-slider.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
-
-
-
 </head>
 <body>
 
@@ -21,38 +19,67 @@
     </div>
 </div>
 
-<div class="center">
-    <section class="ftco-section">
-        <div class="container">
-            <div class="row justify-content-center"></div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h3 class="h5 mb-4 text-center"></h3>
+<%
+    DecimalFormat formatter=new DecimalFormat("###,###.##");
+%>
 
+<ul>
+    <form action="#" name="frmProduct" method="post">
+        <input type="hidden" name="pno" value="${productDTO.pno}">
+        <input type="hidden" name="productName" value="${productDTO.productName}">
+        <input type="hidden" name="unitPrice" value="${productDTO.unitPrice}">
+        <input type="hidden" name="fileName" value="${productDTO.fileName}">
+    </form>
+    <li><c:out value="${productDTO.pcode}"/></li>
+    <li><c:out value="${productDTO.productName}"/></li>
+    <li><c:out value="${productDTO.unitPrice}"/></li>
+    <li><c:out value="${productDTO.description}"/></li>
+    <li><c:out value="${productDTO.category}"/></li>
+    <li><c:out value="${productDTO.unitsInstock}"/></li>
+    <li><c:out value="${productDTO.fileName}"/></li>
+    <li><c:out value="${productDTO.accumulatedOrders}"/></li>
+    <li><c:out value="${productDTO.reviewCount}"/></li>
+    <li><c:out value="${productDTO.addDate}"/></li>
+    <li>
+        <button class="btn-add" type="button">장바구니 담기</button>
+        <a href="/cart/list">장바구니로 이동</a>
+        <a href="/qnaBoard/add?pno=${productDTO.pno}&productName=${productDTO.productName}">상품문의 등록</a>
+    </li>
+</ul>
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const frmProduct = document.querySelector('form[name=frmProduct]');
+        console.log(frmProduct);
+        const btnAdd = document.querySelector('.btn-add');
+        console.log(btnAdd);
 
-                      <ul>
-                          <li><c:out value="${productDTO.pcode}"/></li>
-                          <li><c:out value="${productDTO.productName}"/></li>
-                          <li><c:out value="${productDTO.unitPrice}"/></li>
-                          <li><c:out value="${productDTO.description}"/></li>
-                          <li><c:out value="${productDTO.category}"/></li>
-                          <li><c:out value="${productDTO.unitsInstock}"/></li>
-                          <li><c:out value="${productDTO.fileName}"/></li>
-                          <li><c:out value="${productDTO.accumulatedOrders}"/></li>
-                          <li><c:out value="${productDTO.reviewCount}"/></li>
-                          <li><c:out value="${productDTO.addDate}"/></li>
-                          <li>
-                              <a href="/cart/add?pno=${productDTO.pno}">장바구니 담기</a>
-                              <a href="/cart/list">장바구니로 이동</a>
-                              <a href="/qnaBoard/add?pno=${productDTO.pno}&productName=${productDTO.productName}">상품 문의 등록</a>
-                          </li>
-                      </ul>
+        btnAdd.addEventListener('click', function () {
+            frmProduct.action = '/cart/add';
+            frmProduct.submit();
+        });
+    });
+</script>
 
-                </div>
-            </div>
-        </div>
-    </section>
+<%--                      <ul>--%>
+<%--                          <li><c:out value="${productDTO.pcode}"/></li>--%>
+<%--                          <li><c:out value="${productDTO.productName}"/></li>--%>
+<%--                          <li><c:out value="${productDTO.unitPrice}"/></li>--%>
+<%--                          <li><c:out value="${productDTO.description}"/></li>--%>
+<%--                          <li><c:out value="${productDTO.category}"/></li>--%>
+<%--                          <li><c:out value="${productDTO.unitsInstock}"/></li>--%>
+<%--                          <li><c:out value="${productDTO.fileName}"/></li>--%>
+<%--                          <li><c:out value="${productDTO.accumulatedOrders}"/></li>--%>
+<%--                          <li><c:out value="${productDTO.reviewCount}"/></li>--%>
+<%--                          <li><c:out value="${productDTO.addDate}"/></li>--%>
+<%--                          <li>--%>
+<%--                              <button><a href="/cart/add?pno=${productDTO.pno}" class="text-white">장바구니 담기</a></button>--%>
+<%--                              <button><a href="/cart/list" class="text-white">장바구니 이동</a></button>--%>
+<%--                              <button><a href="/qnaBoard/add?pno=${productDTO.pno}&productName=${productDTO.productName}" class="text-white">문의 등록</a></button>--%>
+<%--                              <button><a href="/qnaBoard/qnaList?pno=${productDTO.pno}&productName=${productDTO.productName}" class="text-white">문의 목록</a></button>--%>
+<%--                          </li>--%>
+<%--                      </ul>--%>
+
 
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/js/tiny-slider.js"></script>

@@ -27,6 +27,7 @@
                         <form method="post" action="/modifyPassword" >
                             <p><label>새 비밀번호&nbsp;</label><input type="password" name="password"  required ></p>
                             <p><label>새 비밀번호 확인&nbsp;</label><input type="password" name="password2" required></p><span class="passCheck"></span>
+                            <p><input name="emailId"  value="${emailId}" hidden="hidden"></p>
                             &nbsp;<button type="submit" value="수정">수정</button>
                         </form>
 
@@ -43,14 +44,17 @@
 <jsp:include page="../inc/footer.jsp"/>
 
 <script>
-    document.addEventListener("DOMContentLoaded",function (){
+    document.addEventListener("DOMContentLoaded",function () {
         const p1 = document.querySelector('input[name="password"]');
         const p2 = document.querySelector('input[name="password2"]');
+        const e1 = document.querySelector('input[name="emailId"]');
         const c1 = document.querySelector(".passCheck");
         const lowercaseRegex = /[a-z]/;
         const digitRegex = /[0-9]/;
 
         p1.addEventListener("keyup", function () {
+
+
             if (p1.value.length < 8) {
                 c1.style.color = "red";
                 c1.innerHTML = "비밀번호는 8자 이상이어야 합니다.";
@@ -62,18 +66,37 @@
                 c1.innerHTML = "비밀번호가 유효합니다.";
             }
         });
+        p1.addEventListener("focusout", function () {
+            const xhr = new XMLHttpRequest();
+
+            xhr.open('GET', './passwordCheck.jsp?emailId=' + e1.value+"&password="+p1.value);
+            xhr.send();
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState !== XMLHttpRequest.DONE) return;
+
+                if (xhr.status === 200) {
+                    const json = JSON.parse(xhr.response);
+                    if (json.result === 'true') {
+                        alert("기존 비밀번호와 동일한 비밀번호입니다.");
+                        p1.clear;
+                    } else {
+                        console.error('Error', xhr.status, xhr.statusText);
+                    }
+
+                }
+            }
+        })
         p2.addEventListener("focusout", function () {
-            if(p1.value === "") {
+            if (p1.value === "") {
                 p1.focus();
                 c1.style.color = "red"
                 c1.innerHTML = "비밀번호를 입력해 주세요.";
-            }
-            else if (p1.value !== p2.value) {
+            } else if (p1.value !== p2.value) {
                 c1.style.color = "red"
                 c1.innerHTML = "비밀번호가 일치하지 않습니다.";
                 p1.value = "";
                 p2.value = "";
-            } else if(p1.value === p2.value){
+            } else if (p1.value === p2.value) {
                 c1.style.color = "green";
                 c1.innerHTML = "비밀번호가 일치합니다.";
             }

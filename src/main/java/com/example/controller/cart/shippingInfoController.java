@@ -25,6 +25,10 @@ public class shippingInfoController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         log.info("/shippingInfo(GET)...");
+
+        HttpSession session = req.getSession();
+        String orderId = (String) session.getAttribute("orderId");
+
         req.getRequestDispatcher("/WEB-INF/cart/shippingInfo.jsp").forward(req, resp);
     }
 
@@ -56,7 +60,7 @@ public class shippingInfoController extends HttpServlet {
             req.getRequestDispatcher("/WEB-INF/cart/thankCustomer.jsp").forward(req, resp);
         } catch (Exception e) {
             log.info(e.getMessage());
-            throw new ServletException("shippingInfo error");
+            throw new ServletException("shippingInfo(POST) error");
         }
     }
 }

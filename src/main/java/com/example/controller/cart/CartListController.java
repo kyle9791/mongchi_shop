@@ -29,6 +29,7 @@ public class CartListController extends HttpServlet {
         try {
             List<CartDTO> cartDTOList = CART_SERVICE.getCartByOrderId(orderId);
             log.info("cartDTOList: " + cartDTOList);
+
             session.setAttribute("cartDTOList", cartDTOList);
             req.getRequestDispatcher("/WEB-INF/cart/cart.jsp").forward(req, resp);
         } catch (Exception e) {
@@ -37,4 +38,5 @@ public class CartListController extends HttpServlet {
         }
     }
 }
+
 

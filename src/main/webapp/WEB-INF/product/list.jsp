@@ -40,66 +40,52 @@
         ProductDTO product = productDTOList.get(j);
 %>
 
-<div class="product-section">
-    <div class="container">
-        <div class="row">
+<div class="untree_co-section product-section before-footer-section">
+        <div class="container">
+            <div class="row">
 
-            <div class="rowrow col-md-10 w-75">
-                <a class="product-item col-col" href="/products/product?pno=<%= product.getPno() %>">
-                    <img src="<%= product.getFileName() %>" alt="상품이미지" class="img-fluid product-thumbnail">
-                    <h3 class="product-title"><%= product.getProductName() %></h3>
-                    <strong class="product-price"><%= formatter.format(Integer.parseInt(String.valueOf(product.getReviewCount()))) %></strong>
-                    <p><label>리뷰&nbsp;</label><label><%= formatter.format(Integer.parseInt(String.valueOf(product.getUnitPrice()))) %>개</p>
+                <div class="col-12 col-md-4 col-lg-3 mb-5">
+                    <a class="product-item col-col" href="/products/product?pno=<%= product.getPno() %>">
+                        <img src="<%= product.getFileName() %>" alt="상품이미지" class="img-fluid product-thumbnail">
+                        <h3 class="product-title"><%= product.getProductName() %></h3>
+                        <strong class="product-price"><%= formatter.format(Integer.parseInt(String.valueOf(product.getReviewCount()))) %></strong>
+                        <p><label>리뷰&nbsp;</label><label><%= formatter.format(Integer.parseInt(String.valueOf(product.getUnitPrice()))) %>개</p>
 
-                    <span class="icon-cross">
-                    <img src="images/cross.svg" class="img-fluid">
-                    </span>
-                </a>
-            </div>
-                <%
+                        <span class="icon-cross">
+                        <img src="images/cross.svg" class="img-fluid">
+                        </span>
+                    </a>
+                </div>
+<%
     }
 %>
-<%--                                <ul style="list-style: none;">--%>
-<%--                                    <li><%= product.getPno() %></li>--%>
-<%--                                    <li><%= product.getPcode() %></li>--%>
-<%--                                    <li><a href="/products/product?pno=<%= product.getPno() %>"><%= product.getProductName() %></a></li>--%>
-<%--                                    <li><%= product.getUnitPrice() %></li>--%>
-<%--                                    <li><%= product.getDescription() %></li>--%>
-<%--                                    <li><%= product.getCategory() %></li>--%>
-<%--                                    <li><%= product.getUnitsInstock() %></li>--%>
-<%--                                    <li><img src="<%= product.getFileName() %>" alt="상품이미지" style="width: 100px"></li>--%>
-<%--                                    <li><%= product.getAccumulatedOrders() %></li>--%>
-<%--                                    <li><%= product.getReviewCount() %></li>--%>
-<%--                                    <li><%= product.getAddDate() %></li>--%>
-<%--                                </ul>--%>
 
+                <%-- 페이지 번호 --%>
+                <div style="text-align: center">
+                    <c:set var="currentPage" value="<%= currentPage %>" />
+                    <a href="/products?currentPage=1">처음</a>
+                    <c:if test="<%= currentBlock > 1 %>">
+                        <a href="/products?currentPage=<%= firstPage - 1 %>">이전</a>
+                    </c:if>
 
-                        <%-- 페이지 번호 --%>
-                        <div style="text-align: center">
-                            <c:set var="currentPage" value="<%= currentPage %>" />
-                            <a href="/products?currentPage=1">처음</a>
-                            <c:if test="<%= currentBlock > 1 %>">
-                                <a href="/products?currentPage=<%= firstPage - 1 %>">이전</a>
-                            </c:if>
+                    <c:forEach var="i" begin="<%= firstPage %>" end="<%= lastPage %>">
+                        <a href="/products?currentPage=${i}">
+                            <c:choose>
+                                <c:when test="${currentPage == i}">
+                                    <span style="color: #4C5317;"><b>[${i}]</b></span>
+                                </c:when>
+                                <c:otherwise>
+                                    <span style="color: #4C5317;">[${i}]</span>
+                                </c:otherwise>
+                            </c:choose>
+                        </a>
+                    </c:forEach>
 
-                            <c:forEach var="i" begin="<%= firstPage %>" end="<%= lastPage %>">
-                                <a href="/products?currentPage=${i}">
-                                    <c:choose>
-                                        <c:when test="${currentPage == i}">
-                                            <span style="color: #4C5317;"><b>[${i}]</b></span>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <span style="color: #4C5317;">[${i}]</span>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </a>
-                            </c:forEach>
-
-                            <c:if test="<%= currentBlock < totalBlock %>">
-                                <a href="/products?currentPage=<%= lastPage + 1 %>">다음</a>
-                            </c:if>
-                            <a href="/products?currentPage=${totalPage}">마지막</a>
-                        </div>
+                    <c:if test="<%= currentBlock < totalBlock %>">
+                        <a href="/products?currentPage=<%= lastPage + 1 %>">다음</a>
+                    </c:if>
+                    <a href="/products?currentPage=${totalPage}">마지막</a>
+                </div>
 
 <%--                </div>--%>
 <%--            </div>--%>
