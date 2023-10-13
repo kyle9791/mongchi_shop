@@ -42,12 +42,10 @@
 <script>
   $(function() {
     $(".answerToggle").hide();
-
     $(".toggle").on("click", function() {
       $(this).next(".answerToggle").slideToggle();
 
     });
-
   });
 </script>
 <style>
@@ -163,11 +161,12 @@
                       <c:if test="${qnaDto.emailId eq sessionEmailId}">
                         <c:if test="${qnaDto.answered==false}">
                           <a href="/qnaBoards/modifyQuestion?pno=<%=pno%>&qno=${qnaDto.qno}">수정</a>
-                          <a href="/qnaBoards/modifyAnswer?pno=<%=pno%>&qno=${qnaDto.qno}">답변 등록</a>
+                          <a href="/qnaBoards/modifyAnswer?pno=<%=pno%>&qno=${qnaDto.qno}"> 답변 등록</a>
                         </c:if>
                         <a href="/qnaBoards/remove?pno=<%=pno%>&qno=${qnaDto.qno}">삭제&nbsp;</a>
                       </c:if>
                 </li>
+
                 <c:if test="${qnaDto.answered==true}">
                   <hr>
                 </c:if>
