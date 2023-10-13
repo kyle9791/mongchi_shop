@@ -1,5 +1,6 @@
 package com.example.controller.qna;
 
+import com.example.dto.MemberDTO;
 import com.example.dto.QnABoardDTO;
 import com.example.service.QnABoardService;
 import lombok.extern.log4j.Log4j2;
@@ -10,17 +11,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Log4j2
-@WebServlet("/qnaBoard/modifyAnswer")
+@WebServlet("/qnaBoards/modifyAnswer")
 public class QnABoardModifyAnswerController extends HttpServlet {
     private final QnABoardService qnABoardService = QnABoardService.INSTANCE;
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         int qno = Integer.parseInt(req.getParameter("qno"));
-        int pno = Integer.parseInt(req.getParameter("pno"));
+        log.info("qno: "+qno);
+        int pno=Integer.parseInt(req.getParameter("pno"));
+        log.info("pno: "+pno);
+
         try {
             QnABoardDTO qnABoardDTO=qnABoardService.getQnABoardByQno(pno, qno);
             req.setAttribute("qnABoardDTO", qnABoardDTO);
@@ -37,6 +42,9 @@ public class QnABoardModifyAnswerController extends HttpServlet {
         resp.setContentType("text/html; charset=utf-8");
         req.setCharacterEncoding("utf-8");
 
+        int pno = Integer.parseInt(req.getParameter("pno"));
+        log.info("pno: "+pno);
+
         try {
             log.info("/qnaBoard/modifyAnswer POST");
             BeanUtils.populate(qnABoardDTO, req.getParameterMap());
@@ -47,6 +55,6 @@ public class QnABoardModifyAnswerController extends HttpServlet {
             throw new ServletException("QnABoardModifyAnswerController POST error");
         }
 
-        resp.sendRedirect("/qnaBoard/qnaList?pcode=P1111");
+        resp.sendRedirect("/qnaBoards?pno="+pno);
     }
 }

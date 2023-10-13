@@ -1,3 +1,5 @@
+<%@ page import="com.example.dto.MemberDTO" %>
+<%@ page import="com.example.dto.ProductDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -7,6 +9,15 @@
     <link href="/css/tiny-slider.css" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
 </head>
+<%
+    MemberDTO memberDTO= (MemberDTO) session.getAttribute("loginInfo");
+    String emailId=null;
+    if(memberDTO!=null) {
+        emailId= memberDTO.getEmailId();
+    }
+
+    String productName= request.getParameter("productName");
+%>
 
 <body>
     <jsp:include page="../inc/menu.jsp"/>
@@ -25,9 +36,10 @@
                     <div class="col-md-12">
                         <h3 class="h5 mb-4 text-center"></h3>
 
-                        <form action="/qnaBoard/add" method="post">
-                            <p><label>상품 이름&nbsp;</label> <input type="text" name="productName" value="<%=request.getParameter("productName")%>" readonly></p>
-                            <p><label>질문 내용&nbsp;</label> <textarea name="questionContent" placeholder="문의하실 내용을 입력해 주세요." required></textarea></p>
+                        <form action="/qnaBoards/add" method="post">
+                            <p><label>제품명&nbsp;</label> <input type="text" name="productName" value="<%=productName%>" readonly></p>
+                            <p><label>이메일&nbsp;</label><input type="text" name="emailId" value="<%=emailId%>" readonly></p>
+                            <p><label>내용&nbsp;</label> <textarea name="questionContent" placeholder="문의하실 내용을 입력해 주세요." required></textarea></p>
 
                             <input type="hidden" name="pno" value="<%= request.getParameter("pno") %>">
                             <input type="checkbox" name="secreted"><label>&nbsp;비밀글 설정&nbsp;</label>

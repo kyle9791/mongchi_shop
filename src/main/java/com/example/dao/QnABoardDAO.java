@@ -48,10 +48,45 @@ public class QnABoardDAO {
                     .answerContent(resultSet.getString("answerContent"))
                     .answered(resultSet.getBoolean("answered"))
                     .emailId(resultSet.getString("emailId"))
+                    .productName(resultSet.getString("productName"))
+                    .secreted(resultSet.getBoolean("secreted"))
                     .build();
         }
         return qnABoardVO;
 
+    }
+
+    public List<QnABoardVO> selectQnABoardByEmailId(String emailId, int currentPage, int limit) throws Exception {
+        // 마이페이지
+        String sql="select * from qna_board where emailId=? order by qno limit ?,?";
+
+        int beginRow=(currentPage-1)*limit;
+
+        @Cleanup Connection connection= ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement preparedStatement=connection.prepareStatement(sql);
+        preparedStatement.setString(1, emailId);
+        preparedStatement.setInt(2, beginRow);
+        preparedStatement.setInt(3, limit);
+        @Cleanup ResultSet resultSet=preparedStatement.executeQuery();
+
+        ArrayList<QnABoardVO> qnaList=new ArrayList<>();
+        if(resultSet.next()) {
+            QnABoardVO qnABoardVO = QnABoardVO.builder()
+                    .pno(resultSet.getInt("pno"))
+                    .questionDate(resultSet.getString("questionDate"))
+                    .answerDate(resultSet.getString("answerDate"))
+                    .questionContent(resultSet.getString("questionContent"))
+                    .qno(resultSet.getInt("qno"))
+                    .answerContent(resultSet.getString("answerContent"))
+                    .answered(resultSet.getBoolean("answered"))
+                    .emailId(emailId)
+                    .secreted(resultSet.getBoolean("secreted"))
+                    .productName(resultSet.getString("productName"))
+                    .build();
+            qnaList.add(qnABoardVO);
+        }
+
+        return qnaList;
     }
 
     public List<QnABoardVO> selectQnAByPno(int pno, int currentPage, int limit) throws Exception {
@@ -65,7 +100,7 @@ public class QnABoardDAO {
         preparedStatement.setInt(1, pno);
         preparedStatement.setInt(2, beginRow);
         preparedStatement.setInt(3, limit);
-        System.out.println("qnaBoardList 목록 출력 : "+preparedStatement);
+        System.out.println("qnaBoardList : "+preparedStatement);
         @Cleanup ResultSet resultSet=preparedStatement.executeQuery();
 
         ArrayList<QnABoardVO> qnaList=new ArrayList<>();
@@ -78,6 +113,7 @@ public class QnABoardDAO {
                     .qno(resultSet.getInt("qno"))
                     .answerContent(resultSet.getString("answerContent"))
                     .answered(resultSet.getBoolean("answered"))
+                    .productName(resultSet.getString("productName"))
                     .emailId(resultSet.getString("emailId"))
                     .secreted(resultSet.getBoolean("secreted"))
                     .build();
@@ -103,7 +139,7 @@ public class QnABoardDAO {
     }
 
     public void updateQuestionBoard(QnABoardVO qnaBoardVO) throws Exception {
-        String sql="update qna_board set questionContent=?, secreted = ? where qno=?";
+        String sql="update qna_board set questionContent=?, secreted = ?, answerDate=now() where qno=?";
 
         @Cleanup Connection connection= ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement preparedStatement=connection.prepareStatement(sql);

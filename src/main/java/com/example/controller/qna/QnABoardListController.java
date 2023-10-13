@@ -1,6 +1,9 @@
 package com.example.controller.qna;
 
+import com.example.dao.ProductDAO;
+import com.example.dto.ProductDTO;
 import com.example.dto.QnABoardDTO;
+import com.example.service.ProductService;
 import com.example.service.QnABoardService;
 import lombok.extern.log4j.Log4j2;
 
@@ -13,7 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Log4j2
-@WebServlet("/qnaBoard/qnaList")
+@WebServlet("/qnaBoards")
 public class QnABoardListController extends HttpServlet {
 
     final int ROW_PER_PAGE = 10; // 페이지에 보일 주문 개수
@@ -30,15 +33,12 @@ public class QnABoardListController extends HttpServlet {
         }
 
         int pno = Integer.parseInt(req.getParameter("pno"));
-        log.info(pno);
+        log.info("pno: "+pno);
 
         try {
             int totalRecord=qnaBoardService.getAllQnAListCount(pno);
-            log.info(totalRecord);
+            log.info("totalRecord: "+totalRecord);
             List<QnABoardDTO> qnABoardDTOList=qnaBoardService.getQnABoardByPno(pno, currentPage, limit);
-//            for(QnABoardDTO dto:qnABoardDTOList) {
-//                log.info(dto.isSecreted());
-//            }
 
             int totalPage;
             if(totalRecord%limit==0) {

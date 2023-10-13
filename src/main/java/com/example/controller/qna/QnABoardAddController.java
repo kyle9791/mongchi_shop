@@ -1,6 +1,7 @@
 package com.example.controller.qna;
 
 import com.example.dto.MemberDTO;
+import com.example.dto.ProductDTO;
 import com.example.dto.QnABoardDTO;
 import com.example.service.QnABoardService;
 import lombok.extern.log4j.Log4j2;
@@ -15,7 +16,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Log4j2
-@WebServlet("/qnaBoard/add")
+@WebServlet("/qnaBoards/add")
 public class QnABoardAddController extends HttpServlet {
     private final QnABoardService qnaBoardService=QnABoardService.INSTANCE;
 
@@ -27,7 +28,10 @@ public class QnABoardAddController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         QnABoardDTO qnABoardDTO = new QnABoardDTO();
+
         int pno = Integer.parseInt(req.getParameter("pno"));
+        log.info("pno: "+pno);
+
         HttpSession session=req.getSession();
         MemberDTO memberDTO= (MemberDTO) session.getAttribute("loginInfo");
         String emailId=memberDTO.getEmailId();
@@ -35,6 +39,7 @@ public class QnABoardAddController extends HttpServlet {
         try {
             BeanUtils.populate(qnABoardDTO, req.getParameterMap());
             qnABoardDTO.setEmailId(emailId);
+
             log.info("/qnaBoard/add POST");
             log.info(qnABoardDTO);
             qnaBoardService.addQnABoard(qnABoardDTO);
@@ -43,6 +48,6 @@ public class QnABoardAddController extends HttpServlet {
             throw new ServletException("ADD error");
         }
 
-        resp.sendRedirect("/qnaBoard/qnaList?pno=" + pno);
+        resp.sendRedirect("/qnaBoards?pno=" + pno);
     }
 }

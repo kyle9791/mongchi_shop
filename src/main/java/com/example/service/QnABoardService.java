@@ -22,13 +22,24 @@ public enum QnABoardService {
     }
 
     public QnABoardDTO getQnABoardByQno(int pno, int qno) throws Exception {
-        log.info("pcode: " + pno);
+        log.info("pno: " + pno);
         log.info("qno: " + qno);
         QnABoardVO qnABoardVO = qnABoardDAO.selectQnABoardByQno(pno, qno);
         log.info(qnABoardVO);
         QnABoardDTO qnABoardDTO = modelMapper.map(qnABoardVO, QnABoardDTO.class);
         log.info("qnABoardDTO: " + qnABoardDTO);
         return qnABoardDTO;
+    }
+
+    public List<QnABoardDTO> getQnABoardByEmailId(String emailId, int currentPage, int limit) throws Exception {
+        // 마이페이지
+        log.info("emailId: "+emailId);
+        List<QnABoardVO> qnABoardVOList = qnABoardDAO.selectQnABoardByEmailId(emailId, currentPage, limit);
+        List<QnABoardDTO> qnABoardDTOList = new ArrayList<>();
+        for(QnABoardVO vo:qnABoardVOList) {
+            qnABoardDTOList.add(modelMapper.map(vo, QnABoardDTO.class));
+        }
+        return qnABoardDTOList;
     }
 
     public int getAllQnAListCount(int pno) throws Exception {
@@ -70,7 +81,11 @@ public enum QnABoardService {
         qnABoardDAO.updateAnswerBoard(qnABoardVO);
     }
 
+//    public void removeQnABoard(int qno) throws Exception {
+//        qnABoardDAO.deleteQnABoard(qno);
+//    }
     public void removeQnABoard(int qno) throws Exception {
+        log.info("qno: " + qno);
         qnABoardDAO.deleteQnABoard(qno);
     }
 
