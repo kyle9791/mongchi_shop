@@ -44,7 +44,6 @@
     $(".answerToggle").hide();
     $(".toggle").on("click", function() {
       $(this).next(".answerToggle").slideToggle();
-
     });
   });
 </script>
@@ -121,8 +120,8 @@
         <div class="list">
           <ul style="font-weight: bold; border-bottom: 2px solid black;" class="text-black">
             <li class="answer">답변 여부</li>
-            <li class="email">작성자</li>
             <li class="questionContent">내용</li>
+            <li class="email">작성자</li>
             <li class="questionDate">작성일</li>
           </ul>
 
@@ -136,7 +135,6 @@
             <c:set var="answerDateSplit" value="${fn:substringBefore(answerDate,' ')}"/>
           <ul class="toggle">
               <li class="answer">${qnaDto.isAnswered() ? "답변 완료" : "미답변"}</li>
-              <li class="email">${emailIdSplit}</li>
 
               <c:if test="${qnaDto.secreted == true}">
                 <c:choose>
@@ -151,13 +149,14 @@
               <c:if test="${qnaDto.secreted == false}">
                 <li class="questionContent">${qnaDto.questionContent}</li>
               </c:if>
+            <li class="email">${emailIdSplit}</li>
             <li class="questionDate">${questionDateSplit}</li>
             </ul>
-<%--           background:#d7dede;--%>
+
             <ul class="answerToggle" style="background:rgb(220 226 224); color: black; padding: 10px">
               <li class="answer"></li>
-              <li class="email"></li>
-<%--              <li><i class="fa-regular fa-circle-question">&nbsp;질문</i></li>--%>
+<%--              <li class="email"></li>--%>
+
               <c:if test="${qnaDto.secreted==false}">
                 <li class="questionContent">
                     ${qnaDto.questionContent}
@@ -169,6 +168,7 @@
                         <a href="/qnaBoards/remove?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;삭제&nbsp;</a>
                       </c:if>
                 </li>
+                <li class="email"></li>
 
                 <c:if test="${qnaDto.answered==true}">
                   <hr>
