@@ -30,32 +30,64 @@
     </div>
   </div>
 
-  <div class="center">
-    <section class="ftco-section">
-      <div class="container">
-        <div class="row justify-content-center"></div>
-        <div class="row">
-          <div class="col-md-12">
-            <h3 class="h5 mb-4 text-center">질문</h3>
+  <section class="ftco-section">
+    <div class="container">
+      <div class="row justify-content-center"></div>
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="h5 mb-4 text-black"></h3>
+          <h3 class="h5 mb-4 text-black"><b>질문 수정</b></h3>
 
-                <form id="modifyQuestionForm" action="/qnaBoards/modifyQuestion" method="post">
-                  <p><input type="hidden" name="qno" value="${qnABoardDTO.qno}" ></p>
-                  <input type="hidden" name="pno" value="${qnABoardDTO.pno}" >
-                  <p><label>제품명&nbsp;</label><input type="text" name="productName" value="${qnABoardDTO.productName}" readonly></p>
-                  <p><label>이메일&nbsp;</label><input type="text" name="emailId" value="<%=sessionEmailId%>" readonly></p>
-                  <p><label>내용&nbsp;</label><textarea name="questionContent">${qnABoardDTO.questionContent}</textarea></p>
-                  <input type="checkbox" name="secreted" ${qnABoardDTO.secreted ? "checked " : ""}><label>&nbsp;비밀글 설정&nbsp;</label>
+              <form id="modifyQuestionForm" action="/qnaBoards/modifyQuestion" method="post">
+                <input type="hidden" name="qno" value="${qnABoardDTO.qno}" >
+                <input type="hidden" name="pno" value="${qnABoardDTO.pno}" >
+                <div class="row">
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label class="text-black">제품명</label>
+                      <input type="text" name="productName" class="form-control" value="${qnABoardDTO.productName}" readonly>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="form-group">
+                      <label class="text-black">이메일</label>
+                      <input type="text" name="emailId" class="form-control" value="<%=sessionEmailId%>" readonly>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group mb-5">
+                  <label class="text-black">내용</label>
+                  <textarea name="questionContent" class="form-control" cols="30" rows="5" required>
+                    ${qnABoardDTO.questionContent}
+                  </textarea>
+                  <p><input type="checkbox" name="secreted" ${qnABoardDTO.secreted ? "checked " : ""}><label class="text-black">&nbsp;비밀글 설정&nbsp;</label></p>
+                </div>
+                <div class="form-group" style="margin-top: -30px;">
+                  <button id="send" type="button" class="btn btn-primary-hover-outline" style="background: #3b5d50 !important; padding: 10px 20px !important;">수정</button>
+                  <button type="reset" class="btn btn-primary-hover-outline" style="padding: 10px 20px !important;">초기화</button>
+                  <button class="btn btn-secondary-hover-outline" style="padding: 10px 20px !important;"><a href="javascript:history.back()" style="text-decoration: none;" class="text-white">뒤로 가기</a></button>
+                </div>
 
-                  <button type="submit">수정</button>
-                </form>
+              </form>
 
-
-          </div>
         </div>
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
 
+<script>
+  const questionForm = document.querySelector("#modifyQuestionForm");
+  const questionContent = document.querySelector("#modifyQuestionForm textarea");
+  const btn = document.querySelector("#send");
+  btn.addEventListener("click", function () {
+    questionContent.value = questionContent.value.trim();
+    questionForm.submit();
+  });
+  document.addEventListener('DOMContentLoaded', function() {
+    const content = document.querySelector("textarea");
+    content.value = content.value.trim();
+  });
+</script>
 
   <script src="/js/bootstrap.bundle.min.js"></script>
   <script src="/js/tiny-slider.js"></script>

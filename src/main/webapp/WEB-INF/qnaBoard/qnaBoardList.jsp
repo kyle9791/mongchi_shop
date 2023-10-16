@@ -51,12 +51,7 @@
 <style>
   li { list-style: none; }
 
-  .notice {
-    width: 1000px;
-    margin: 0 auto;
-    /*box-sizing: border-box;*/
-    /*outline: 1px dashed black;*/
-  }
+  .list { width: 1000px; margin: 0 auto; }
 
   .notice ul {
     width: 100%;
@@ -64,40 +59,45 @@
 
   .answer {
     width: 100px;
-    border: 1px solid black;
     text-align: center;
   }
 
   .email {
     width: 150px;
-    border: 1px solid red;
     text-align: center;
   }
 
 
   .questionContent {
     width: 700px;
-    border: 1px solid orange;
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-
+  .paging {
+    text-align: center;
+  }
   .questionDate {
     width: 120px;
-    border: 1px solid green;
     text-align: center;
   }
 
-  .notice > ul { position: relative; display: flex; margin-bottom: 0;}
+  .list > ul { position: relative; display: flex; margin-bottom: 0;}
   div ul li { position: relative; }
 
   .answerToggle {
     flex-direction: column;
   }
-  .answerToggle li { width: 100%; text-align: center; }
+  .answerToggle li { width: 100%; text-align: center;}
+  .toggle li { padding-top: 10px; }
+  .toggle:hover {
+    background: rgb(220 226 224);
+  }
+  .a_href {
+    text-decoration: none; color: gray; font-size: 10px;
+  }
 
 </style>
 
@@ -118,8 +118,8 @@
       <div class="col-md-12">
         <h3 class="h5 mb-4 text-center"></h3>
 
-        <div class="notice">
-          <ul style="font-weight: bold;">
+        <div class="list">
+          <ul style="font-weight: bold; border-bottom: 2px solid black;" class="text-black">
             <li class="answer">답변 여부</li>
             <li class="email">작성자</li>
             <li class="questionContent">내용</li>
@@ -153,27 +153,30 @@
               </c:if>
             <li class="questionDate">${questionDateSplit}</li>
             </ul>
-
-            <ul class="answerToggle">
+<%--           background:#d7dede;--%>
+            <ul class="answerToggle" style="background:rgb(220 226 224); color: black; padding: 10px">
+              <li class="answer"></li>
+              <li class="email"></li>
+<%--              <li><i class="fa-regular fa-circle-question">&nbsp;질문</i></li>--%>
               <c:if test="${qnaDto.secreted==false}">
-                <li>
+                <li class="questionContent">
                     ${qnaDto.questionContent}
                       <c:if test="${qnaDto.emailId eq sessionEmailId}">
                         <c:if test="${qnaDto.answered==false}">
-                          <a href="/qnaBoards/modifyQuestion?pno=<%=pno%>&qno=${qnaDto.qno}">수정</a>
-                          <a href="/qnaBoards/modifyAnswer?pno=<%=pno%>&qno=${qnaDto.qno}"> 답변 등록</a>
+                          <a href="/qnaBoards/modifyQuestion?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;수정</a>
+                          <a href="/qnaBoards/modifyAnswer?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;답변 등록</a>
                         </c:if>
-                        <a href="/qnaBoards/remove?pno=<%=pno%>&qno=${qnaDto.qno}">삭제&nbsp;</a>
+                        <a href="/qnaBoards/remove?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;삭제&nbsp;</a>
                       </c:if>
                 </li>
 
                 <c:if test="${qnaDto.answered==true}">
                   <hr>
+                  <li>
+                    <i class="fa-regular fa-comment fa-flip-horizontal"></i>
+                    ${qnaDto.answerContent} <span style="color: gray">${answerDateSplit}</span>
+                  </li>
                 </c:if>
-                <li>
-                  <p>${qnaDto.answerContent} <span>${answerDateSplit}</span></p>
-                </li>
-
               </c:if>
 
               <c:if test="${qnaDto.secreted==true}">
@@ -181,44 +184,45 @@
                   <li>
                       ${qnaDto.questionContent}
                         <c:if test="${qnaDto.answered==false}">
-                          <a href="/qnaBoards/modifyQuestion?pno=<%=pno%>&qno=${qnaDto.qno}">수정</a>
+                          <a href="/qnaBoards/modifyQuestion?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;수정</a>
                         </c:if>
-                        <a href="/qnaBoards/remove?pno=<%=pno%>&qno=${qnaDto.qno}">삭제&nbsp;</a>
+                        <a href="/qnaBoards/remove?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;삭제&nbsp;</a>
                   </li>
                   <c:if test="${qnaDto.answered==true}">
                     <hr>
+                    <li>
+                      <i class="fa-regular fa-comment fa-flip-horizontal"></i>
+                        ${qnaDto.answerContent} <span>${qnaDto.answerDate}</span>
+                    </li>
                   </c:if>
-                  <li>
-                  <p>${qnaDto.answerContent} <span>${qnaDto.answerDate}</span></p>
-                  </li>
                 </c:if>
             </c:if>
 
             </ul>
       </c:forEach>
+          <hr>
+          <button class="btn btn-primary-hover-outline" style="background: #3b5d50 !important; padding: 10px 20px !important;"><a style="text-decoration: none" class="text-white" href="/qnaBoards/add?pno=<%=pno%>&productName=<%=qnABoardDTO.getProductName()%>">문의 등록</a></button>
+          <button class="btn btn-primary-hover-outline" style="padding: 10px 20px !important;"><a href="javascript:history.back()" style="text-decoration: none;" class="text-white">뒤로 가기</a></button>
 
-          </div>
-
-        <a href="/qnaBoards/add?pno=<%=pno%>&productName=<%=qnABoardDTO.getProductName()%>">문의 등록</a>
-
+        </div>
         </div>
       </div>
   </div>
 </section>
-
+<h3 class="h5 mb-4 text-center"></h3>
 
 
 
 <!-- 페이지 -->
-<div style="text-align: center">
+<div class="paging">
   <c:set var="currentPage" value="<%=currentPage%>"/>
 
-  <a href="/qnaBoards?pno=<%=pno%>&currentPage=1"/><span>처음</span></a>
+  <a href="/qnaBoards?pno=<%=pno%>&currentPage=1" style="text-decoration: none"/><span>처음</span></a>
   <c:if test="${thisBlock>1}">
-    <a href="/qnaBoards?pno=<%=pno%>&currentPage=${firstPage-1}"/><span>이전</span></a>
+    <a href="/qnaBoards?pno=<%=pno%>&currentPage=${firstPage-1}" style="text-decoration: none"/><span>이전</span></a>
   </c:if>
   <c:forEach var="i" begin="<%=firstPage%>" end="<%=lastPage%>">
-    <a href="/qnaBoards?pno=<%=pno%>&currentPage=${i}">
+    <a href="/qnaBoards?pno=<%=pno%>&currentPage=${i}" style="text-decoration: none">
         <%--                    <a href="./boardList.do?pageNum=${i}&items=<%=items%>&text=<%=text%>">--%>
       <c:choose>
         <c:when test="${currentPage==i}">
@@ -232,14 +236,21 @@
   </c:forEach>
 
   <c:if test="${thisBlock<totalBlock}">
-    <a href="/qnaBoards?pno=<%=pno%>&currentPage=${lastPage+1}"/><span>다음</span></a>
+    <a href="/qnaBoards?pno=<%=pno%>&currentPage=${lastPage+1}" style="text-decoration: none"/><span>다음</span></a>
   </c:if>
-  <a href="/qnaBoards?pno=<%=pno%>&currentPage=${totalPage}"/><span>마지막</span></a>
+  <a href="/qnaBoards?pno=<%=pno%>&currentPage=${totalPage}" style="text-decoration: none"/><span>마지막</span></a>
 
   <script src="/js/bootstrap.bundle.min.js"></script>
   <script src="/js/tiny-slider.js"></script>
   <script src="/js/custom.js"></script>
   <jsp:include page="../inc/footer.jsp"/>
+
+  <style>
+    .paging a:hover {
+      color: seagreen;
+      font-weight: bold;
+    }
+  </style>
 </div>
 
 <script>

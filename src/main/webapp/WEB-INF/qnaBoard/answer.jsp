@@ -25,37 +25,75 @@
     </div>
 </div>
 
-<div class="center">
-    <section class="ftco-section">
-        <div class="container">
-            <div class="row justify-content-center"></div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h3 class="h5 mb-4 text-center">질문</h3>
-                    <form id="modifyQuestionForm" action="/qnaBoards/modifyQuestion" method="get">
-                        <p><input type="hidden" name="qno" value="${qnABoardDTO.qno}" ></p>
+<section class="ftco-section">
+    <div class="container">
+        <div class="row justify-content-center"></div>
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="h5 mb-4 text-black"></h3>
+                <h3 class="h5 mb-4 text-black"><b>질문</b></h3>
+                <form id="modifyQuestionForm" action="/qnaBoards/modifyQuestion" method="get">
+                    <div class="row">
+                        <input type="hidden" name="qno" value="${qnABoardDTO.qno}" >
                         <input type="hidden" name="pno" value="${qnABoardDTO.pno}" >
-                        <p><label>제품명&nbsp;</label><input type="text" name="productName" value="${qnABoardDTO.productName}" readonly></p>
-                        <p><label>이메일&nbsp;</label><input type="text" name="emailId" value="<%=sessionEmailId%>" readonly></p>
-                        <p><label>내용&nbsp;</label><textarea name="questionContent" readonly>${qnABoardDTO.questionContent}</textarea></p>
-                    </form>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="text-black">제품명</label>
+                                <input type="text" name="productName" class="form-control" value="${qnABoardDTO.productName}" readonly>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label class="text-black">이메일</label>
+                                <input type="text" name="emailId" class="form-control" value="<%=sessionEmailId%>" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group mb-5">
+                        <label class="text-black">내용</label>
+                        <textarea name="questionContent" class="form-control" cols="30" rows="5" readonly>
+                            ${qnABoardDTO.questionContent}
+                        </textarea>
+                    </div>
+                </form>
 
-                    <hr>
+                <hr>
 
-                    <h3 class="h5 mb-4 text-center">답변</h3>
+                <h3 class="h5 mb-4 text-black"><b>답변</b></h3>
 
-                    <form id="modifyAnswerForm" action="/qnaBoards/modifyAnswer" method="post">
-                        <input type="hidden" name="qno" value="${qnABoardDTO.qno}">
-                        <input type="hidden" name="pno" value="${qnABoardDTO.pno}" >
-                        <textarea name="answerContent"></textarea>
-                        <button type="submit">답변 등록</button>
-                    </form>
+                <form id="modifyAnswerForm" action="/qnaBoards/modifyAnswer" method="post">
+                    <input type="hidden" name="qno" value="${qnABoardDTO.qno}">
+                    <input type="hidden" name="pno" value="${qnABoardDTO.pno}" >
+                    <div class="form-group mb-5">
+                        <label class="text-black">답변 내용</label>
+                        <textarea name="answerContent" class="form-control" cols="30" rows="5"></textarea>
+                    </div>
+                    <div style="margin-top: -30px;">
+                        <button id="send" type="button" class="btn btn-primary-hover-outline" style="background: #3b5d50 !important; padding: 10px 20px !important;">답변 등록</button>
+                        <button type="reset" class="btn btn-primary-hover-outline" style="padding: 10px 20px !important;">초기화</button>
+                        <button class="btn btn-secondary-hover-outline" style="padding: 10px 20px !important;"><a href="javascript:history.back()" style="text-decoration: none;" class="text-white">뒤로 가기</a></button>
+                    </div>
 
-                </div>
+                </form>
+
             </div>
         </div>
-    </section>
-</div>
+    </div>
+</section>
+
+<script>
+    const answerForm = document.querySelector("#modifyAnswerForm");
+    const answerContent = document.querySelector("#modifyAnswerForm textarea");
+    const btn = document.querySelector("#send");
+    btn.addEventListener("click", function () {
+        answerContent.value = answerContent.value.trim();
+        answerForm.submit();
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        const content = document.querySelector("textarea");
+        content.value = content.value.trim();
+    });
+</script>
 
 <script src="/js/bootstrap.bundle.min.js"></script>
 <script src="/js/tiny-slider.js"></script>

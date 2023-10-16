@@ -37,13 +37,33 @@
                         <h3 class="h5 mb-4 text-center"></h3>
 
                         <form action="/qnaBoards/add" method="post">
-                            <p><label>제품명&nbsp;</label> <input type="text" name="productName" value="<%=productName%>" readonly></p>
-                            <p><label>이메일&nbsp;</label><input type="text" name="emailId" value="<%=emailId%>" readonly></p>
-                            <p><label>내용&nbsp;</label> <textarea name="questionContent" placeholder="문의하실 내용을 입력해 주세요." required></textarea></p>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label class="text-black">제품명</label>
+                                        <input type="text" name="productName" class="form-control" value="<%=productName%>" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label class="text-black">이메일</label>
+                                        <input type="text" name="emailId" class="form-control" value="<%=emailId%>" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group mb-5">
+                                <label class="text-black">내용</label>
+                                <textarea name="questionContent" class="form-control" cols="30" rows="5" placeholder="문의하실 내용을 입력해 주세요." required></textarea>
+                                <p><input type="checkbox" name="secreted"><label class="text-black">&nbsp;비밀글 설정&nbsp;</label></p>
+                            </div>
+                            <div class="form-group" style="margin-top: -30px;">
+                                <button id="send" type="button" class="btn btn-primary-hover-outline" style="padding: 10px 20px !important; background: #3b5d50 !important;">전송</button>
+                                <button type="reset" class="btn btn-primary-hover-outline" style="padding: 10px 20px !important;">초기화</button>
+                                <button class="btn btn-secondary-hover-outline" style="padding: 10px 20px !important;"><a href="javascript:history.back()" style="text-decoration: none;" class="text-white">뒤로 가기</a></button>
+                            </div>
 
-                            <input type="hidden" name="pno" value="<%= request.getParameter("pno") %>">
-                            <input type="checkbox" name="secreted"><label>&nbsp;비밀글 설정&nbsp;</label>
-                            <button type="submit">전송</button>
+                            <input type="hidden" name="pno" value="<%= request.getParameter("pno") %>"><%-- 다음 페이지에 pno 전달하는 역할--%>
+
                         </form>
 
                     </div>
@@ -51,6 +71,17 @@
             </div>
         </section>
     </div>
+
+    <script>
+        const frm = document.querySelector("form");
+        const content = document.querySelector("textarea");
+        const btn = document.querySelector("#send");
+        btn.addEventListener("click", function () {
+            content.value = content.value.trim();
+            frm.submit();
+        });
+
+    </script>
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/js/tiny-slider.js"></script>
     <script src="/js/custom.js"></script>
