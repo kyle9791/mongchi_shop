@@ -65,7 +65,7 @@
                 <div class="form-group" style="margin-top: -30px;">
                   <button id="send" type="button" class="btn btn-primary-hover-outline" style="background: #3b5d50 !important; padding: 10px 20px !important;">수정</button>
                   <button type="reset" class="btn btn-primary-hover-outline" style="padding: 10px 20px !important;">초기화</button>
-                  <button class="btn btn-secondary-hover-outline" style="padding: 10px 20px !important;"><a href="javascript:history.back()" style="text-decoration: none;" class="text-white">뒤로 가기</a></button>
+                  <button class="btn btn-secondary-hover-outline" style="padding: 10px 20px !important;"><a href="/qnaBoards?pno=<%=pno%>" style="text-decoration: none;" class="text-white">뒤로 가기</a></button>
                 </div>
 
               </form>

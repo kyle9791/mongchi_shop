@@ -43,8 +43,8 @@
     <li>
         <button class="btn-add" type="button">장바구니 담기</button>
         <a href="/cart/list">장바구니로 이동</a>
-        <a href="/qnaBoard/add?pno=${productDTO.pno}&productName=${productDTO.productName}">문의 등록</a>
-        <a href="/qnaBoard/qnaList?pno=${productDTO.pno}&productName=${productDTO.productName}">문의 목록</a>
+        <a href="/qnaBoards/add?pno=${productDTO.pno}&productName=${productDTO.productName}">문의 등록</a>
+        <a href="/qnaBoards?pno=${productDTO.pno}&productName=${productDTO.productName}">문의 목록</a>
     </li>
 </ul>
 
@@ -61,26 +61,6 @@
         });
     });
 </script>
-
-<%--                      <ul>--%>
-<%--                          <li><c:out value="${productDTO.pcode}"/></li>--%>
-<%--                          <li><c:out value="${productDTO.productName}"/></li>--%>
-<%--                          <li><c:out value="${productDTO.unitPrice}"/></li>--%>
-<%--                          <li><c:out value="${productDTO.description}"/></li>--%>
-<%--                          <li><c:out value="${productDTO.category}"/></li>--%>
-<%--                          <li><c:out value="${productDTO.unitsInstock}"/></li>--%>
-<%--                          <li><c:out value="${productDTO.fileName}"/></li>--%>
-<%--                          <li><c:out value="${productDTO.accumulatedOrders}"/></li>--%>
-<%--                          <li><c:out value="${productDTO.reviewCount}"/></li>--%>
-<%--                          <li><c:out value="${productDTO.addDate}"/></li>--%>
-<%--                          <li>--%>
-<%--                              <button><a href="/cart/add?pno=${productDTO.pno}" class="text-white">장바구니 담기</a></button>--%>
-<%--                              <button><a href="/cart/list" class="text-white">장바구니 이동</a></button>--%>
-<%--                              <button><a href="/qnaBoard/add?pno=${productDTO.pno}&productName=${productDTO.productName}" class="text-white">문의 등록</a></button>--%>
-<%--                              <button><a href="/qnaBoard/qnaList?pno=${productDTO.pno}&productName=${productDTO.productName}" class="text-white">문의 목록</a></button>--%>
-<%--                          </li>--%>
-<%--                      </ul>--%>
-
 
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/js/tiny-slider.js"></script>
