@@ -86,6 +86,7 @@
     const answerContent = document.querySelector("#modifyAnswerForm textarea");
     const btn = document.querySelector("#send");
     btn.addEventListener("click", function () {
+        confirm("답변을 등록하면 수정만 가능합니다. 등록하시겠습니까?");
         answerContent.value = answerContent.value.trim();
         answerForm.submit();
     });
