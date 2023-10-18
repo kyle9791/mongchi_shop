@@ -61,7 +61,7 @@
 
                 <h3 class="h5 mb-4 text-black"><b>답변</b></h3>
 
-                <form id="modifyAnswerForm" action="/qnaBoards/modifyAnswer" method="post">
+                <form id="modifyAnswerForm" action="/qnaBoards/addAnswer" method="post">
                     <input type="hidden" name="qno" value="${qnABoardDTO.qno}">
                     <input type="hidden" name="pno" value="${qnABoardDTO.pno}" >
                     <div class="form-group mb-5">

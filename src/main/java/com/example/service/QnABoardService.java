@@ -76,14 +76,16 @@ public enum QnABoardService {
         qnABoardDAO.updateQuestionBoard(qnABoardVO);
     }
 
+    public void addAnswerBoard(QnABoardDTO qnaBoardDTO) throws Exception {
+        QnABoardVO qnABoardVO=modelMapper.map(qnaBoardDTO, QnABoardVO.class);
+        qnABoardDAO.insertAnswerBoard(qnABoardVO);
+    }
+
     public void modifyAnswerBoard(QnABoardDTO qnaBoardDTO) throws Exception {
         QnABoardVO qnABoardVO=modelMapper.map(qnaBoardDTO, QnABoardVO.class);
         qnABoardDAO.updateAnswerBoard(qnABoardVO);
     }
 
-//    public void removeQnABoard(int qno) throws Exception {
-//        qnABoardDAO.deleteQnABoard(qno);
-//    }
     public void removeQnABoard(int qno) throws Exception {
         log.info("qno: " + qno);
         qnABoardDAO.deleteQnABoard(qno);

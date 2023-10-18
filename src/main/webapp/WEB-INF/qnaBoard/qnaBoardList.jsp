@@ -171,10 +171,10 @@
                       ${qnaDto.questionContent}
                         <c:if test="${qnaDto.emailId eq sessionEmailId}">
                           <c:if test="${qnaDto.answered==false}">
-                            <a href="/qnaBoards/modifyQuestion?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;수정</a>
-                            <a href="/qnaBoards/modifyAnswer?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;답변 등록</a>
+                            <a href="/qnaBoards/modifyQuestion?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;질문 수정</a>
+                            <a href="/qnaBoards/addAnswer?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;답변 등록</a>
                           </c:if>
-                          <a href="/qnaBoards/remove?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;삭제&nbsp;</a>
+                          <a href="/qnaBoards/remove?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;질문 삭제&nbsp;</a>
                         </c:if>
                   </li>
                   <li class="email"></li>
@@ -184,6 +184,7 @@
                     <li>
                       <i class="fa-regular fa-comment fa-flip-horizontal"></i>
                       ${qnaDto.answerContent} <span style="color: gray">${answerDateSplit}</span>
+                      <a href="/qnaBoards/modifyAnswer?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;답변 수정</a>
                     </li>
                   </c:if>
                 </c:if>
@@ -193,9 +194,9 @@
                     <li>
                         ${qnaDto.questionContent}
                           <c:if test="${qnaDto.answered==false}">
-                            <a href="/qnaBoards/modifyQuestion?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;수정</a>
+                            <a href="/qnaBoards/modifyQuestion?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;질문 수정</a>
                           </c:if>
-                          <a href="/qnaBoards/remove?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;삭제&nbsp;</a>
+                          <a href="/qnaBoards/remove?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;질문 삭제&nbsp;</a>
                     </li>
                     <c:if test="${qnaDto.answered==true}">
                       <hr>

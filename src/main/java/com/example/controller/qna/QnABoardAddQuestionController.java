@@ -1,7 +1,6 @@
 package com.example.controller.qna;
 
 import com.example.dto.MemberDTO;
-import com.example.dto.ProductDTO;
 import com.example.dto.QnABoardDTO;
 import com.example.service.QnABoardService;
 import lombok.extern.log4j.Log4j2;
@@ -17,7 +16,7 @@ import java.io.IOException;
 
 @Log4j2
 @WebServlet("/qnaBoards/add")
-public class QnABoardAddController extends HttpServlet {
+public class QnABoardAddQuestionController extends HttpServlet {
     private final QnABoardService qnaBoardService=QnABoardService.INSTANCE;
 
     @Override

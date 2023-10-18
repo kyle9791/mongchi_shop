@@ -151,7 +151,7 @@ public class QnABoardDAO {
         preparedStatement.executeUpdate();
     }
 
-    public void updateAnswerBoard(QnABoardVO qnaBoardVO) throws Exception {
+    public void insertAnswerBoard(QnABoardVO qnaBoardVO) throws Exception {
         String sql="update qna_board set answerContent=?, answerDate=now(), answered=? where qno=?";
 
         @Cleanup Connection connection= ConnectionUtil.INSTANCE.getConnection();
@@ -172,6 +172,18 @@ public class QnABoardDAO {
         @Cleanup PreparedStatement preparedStatement=connection.prepareStatement(sql);
 
         preparedStatement.setInt(1, qno);
+        preparedStatement.executeUpdate();
+    }
+
+    public void updateAnswerBoard(QnABoardVO qnaBoardVO) throws Exception {
+        String sql="update qna_board set answerContent=? where qno=?";
+
+        @Cleanup Connection connection= ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement preparedStatement=connection.prepareStatement(sql);
+
+        preparedStatement.setString(1, qnaBoardVO.getAnswerContent());
+        preparedStatement.setInt(2, qnaBoardVO.getQno());
+
         preparedStatement.executeUpdate();
     }
 

@@ -44,12 +44,20 @@ public class QnABoardDAOTests {
                 .answered(true)
                 .answerContent("죄송합니다, 고객님. 파손 제품은 수거해 가고, 새로운 제품 보내 드리겠습니다.")
                 .build();
-        qnABoardDAO.updateAnswerBoard(qnABoardVO);
+        qnABoardDAO.insertAnswerBoard(qnABoardVO);
     }
 
     @Test
     public void testDeleteQnABoard() throws Exception {
         qnABoardDAO.deleteQnABoard(4);
+    }
+
+    @Test
+    public void testUpdateAnswer() throws Exception {
+        QnABoardVO qnABoardVO=QnABoardVO.builder()
+                .qno(133)
+                .build();
+        qnABoardDAO.updateAnswerBoard(qnABoardVO);
     }
 
     @Test

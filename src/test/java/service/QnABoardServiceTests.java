@@ -64,6 +64,14 @@ public class QnABoardServiceTests {
     }
 
     @Test
+    public void testDeleteAnswer() throws Exception {
+        QnABoardDTO qnABoardDTO=QnABoardDTO.builder()
+                .qno(123)
+                .build();
+        qnABoardService.removeAnswer(qnABoardDTO);
+    }
+
+    @Test
     public void testRemoveQnABoard() throws Exception {
         qnABoardService.removeQnABoard(5);
     }

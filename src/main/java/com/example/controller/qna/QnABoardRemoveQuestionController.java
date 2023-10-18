@@ -12,7 +12,7 @@ import java.io.IOException;
 
 @Log4j2
 @WebServlet("/qnaBoards/remove")
-public class QnABoardRemoveController extends HttpServlet {
+public class QnABoardRemoveQuestionController extends HttpServlet {
 
     private final QnABoardService qnABoardService=QnABoardService.INSTANCE;
 
