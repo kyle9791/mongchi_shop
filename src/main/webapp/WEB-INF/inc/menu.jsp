@@ -30,9 +30,8 @@
     ::-webkit-scrollbar { width: 16px; }
     ::-webkit-scrollbar-track { background-color: #0c4128; }
     ::-webkit-scrollbar-thumb { background-color: antiquewhite; border-radius: 10px; }
-    ::-webkit-scrollbar-thumb:hover { background-color: #20c997; }
+    ::-webkit-scrollbar-thumb:hover { background-color: #8FBC8F; }
 
-    nav { position: fixed; }
 </style>
 <%
     MemberDTO memberDTO= (MemberDTO) session.getAttribute("loginInfo");
