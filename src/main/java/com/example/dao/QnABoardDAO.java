@@ -187,4 +187,20 @@ public class QnABoardDAO {
         preparedStatement.executeUpdate();
     }
 
+    public int getQnAListCountEmail(String eamilId) throws Exception {
+
+        String sql="select count(*) from qna_board where emailId=?";
+        @Cleanup Connection connection= ConnectionUtil.INSTANCE.getConnection();
+        @Cleanup PreparedStatement preparedStatement=connection.prepareStatement(sql);
+        preparedStatement.setString(1, eamilId);
+        @Cleanup ResultSet resultSet=preparedStatement.executeQuery();
+
+        int cnt=0;
+        if(resultSet.next()) {
+            cnt=resultSet.getInt(1);
+            System.out.println("dao cnt: "+cnt);
+        }
+        return cnt;
+    }
+
 }

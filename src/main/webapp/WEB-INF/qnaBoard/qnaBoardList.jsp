@@ -19,7 +19,6 @@
   int currentPage=(Integer) request.getAttribute("currentPage");
   int totalPage=(Integer) request.getAttribute("totalPage");
   int pno=(Integer)request.getAttribute("pno"); // doGet
-//  String productName=request.getParameter("productName");
 
   int pagePerBlock=5; // 페이지 출력 시 나올 범위
   int totalBlock=totalPage%pagePerBlock==0 ? totalPage / pagePerBlock : totalPage / pagePerBlock+1; // 전체 블럭 수
@@ -30,13 +29,13 @@
 
   MemberDTO memberDTO= (MemberDTO) session.getAttribute("loginInfo");
   String sessionEmailId=null;
+  String role=memberDTO.getRole();
   if(memberDTO!=null) {
     sessionEmailId= memberDTO.getEmailId();
   }
 
-  System.out.println(qnABoardDTOList);
-
   String productName=null;
+
   QnABoardDTO qnABoardDTO=null;
   if(qnABoardDTOList.size()>0) {
     qnABoardDTO = qnABoardDTOList.get(0);
@@ -137,6 +136,7 @@
             <%--            <c:if test="${fn:length(qnABoardDTOList) > 0}">--%>
 
               <c:set var="sessionEmailId" value="<%=sessionEmailId%>"/>
+              <c:set var="role" value="<%=role%>"/>
               <c:set var="emailId" value="${qnaDto.emailId}"/>
               <c:set var="emailIdSplit" value="${fn:substringBefore(emailId,'@')}"/>
               <c:set var="questionDate" value="${qnaDto.questionDate}"/>
@@ -148,7 +148,7 @@
 
                 <c:if test="${qnaDto.secreted == true}">
                   <c:choose>
-                    <c:when test="${qnaDto.emailId eq sessionEmailId}">
+                    <c:when test="${(qnaDto.emailId eq sessionEmailId) or (role eq 'qna')}">
                       <li class="questionContent">${qnaDto.questionContent}</li>
                     </c:when>
                     <c:otherwise>
@@ -172,25 +172,29 @@
                         <c:if test="${qnaDto.emailId eq sessionEmailId}">
                           <c:if test="${qnaDto.answered==false}">
                             <a href="/qnaBoards/modifyQuestion?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;질문 수정</a>
-                            <a href="/qnaBoards/addAnswer?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;답변 등록</a>
                           </c:if>
                           <a href="/qnaBoards/remove?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;질문 삭제&nbsp;</a>
                         </c:if>
+                        <c:if test="${role eq 'qna'}">
+                          <a href="/qnaBoards/addAnswer?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;답변 등록</a>
+                        </c:if>
                   </li>
-                  <li class="email"></li>
+                  <eli class="email"></eli>
 
                   <c:if test="${qnaDto.answered==true}">
                     <hr>
                     <li>
                       <i class="fa-regular fa-comment fa-flip-horizontal"></i>
                       ${qnaDto.answerContent} <span style="color: gray">${answerDateSplit}</span>
-                      <a href="/qnaBoards/modifyAnswer?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;답변 수정</a>
+                      <c:if test="${role eq 'qna'}">
+                        <a href="/qnaBoards/modifyAnswer?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;답변 수정</a>
+                      </c:if>
                     </li>
                   </c:if>
                 </c:if>
 
                 <c:if test="${qnaDto.secreted==true}">
-                  <c:if test="${qnaDto.emailId eq sessionEmailId}">
+                  <c:if test="${(qnaDto.emailId eq sessionEmailId)}">
                     <li>
                         ${qnaDto.questionContent}
                           <c:if test="${qnaDto.answered==false}">
@@ -206,6 +210,21 @@
                       </li>
                     </c:if>
                   </c:if>
+
+                  <c:if test="${(role eq 'qna')}">
+                    <li>${qnaDto.questionContent}
+                      <a href="/qnaBoards/addAnswer?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;답변 등록</a></li>
+                    <c:if test="${qnaDto.answered==true}">
+                      <hr>
+                      <li>
+                        <i class="fa-regular fa-comment fa-flip-horizontal"></i>
+                          ${qnaDto.answerContent} <span>${qnaDto.answerDate}<a href="/qnaBoards/modifyAnswer?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;답변 수정</a></span>
+                      </li>
+                    </c:if>
+                  </c:if>
+
+
+
               </c:if>
 
               </ul>

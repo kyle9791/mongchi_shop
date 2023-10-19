@@ -91,6 +91,13 @@ public enum QnABoardService {
         qnABoardDAO.deleteQnABoard(qno);
     }
 
+    public int getMyQnAListCount(String emailId) throws Exception {
+        int cnt = qnABoardDAO.getQnAListCountEmail(emailId);
+        log.info(cnt+"COUNTCOUNT!!|");
+        return cnt;
+    }
+
+
 
 
 }
