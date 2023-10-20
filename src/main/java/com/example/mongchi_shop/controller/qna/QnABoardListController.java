@@ -1,10 +1,7 @@
-package com.example.controller.qna;
+package com.example.mongchi_shop.controller.qna;
 
-import com.example.dao.ProductDAO;
-import com.example.dto.ProductDTO;
-import com.example.dto.QnABoardDTO;
-import com.example.service.ProductService;
-import com.example.service.QnABoardService;
+import com.example.mongchi_shop.dto.QnABoardDTO;
+import com.example.mongchi_shop.service.QnABoardService;
 import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.ServletException;
@@ -33,6 +30,7 @@ public class QnABoardListController extends HttpServlet {
         }
 
         int pno = Integer.parseInt(req.getParameter("pno"));
+        String productName = req.getParameter("productName");
         log.info("pno: "+pno);
 
         try {
@@ -59,6 +57,8 @@ public class QnABoardListController extends HttpServlet {
 
             req.setAttribute("ROW_PER_PAGE", ROW_PER_PAGE);
             req.setAttribute("pno", pno);
+            req.setAttribute("productName", productName);
+
             req.getRequestDispatcher("/WEB-INF/qnaBoard/qnaBoardList.jsp").forward(req, resp);
         } catch (Exception e) {
             log.info(e.getMessage());

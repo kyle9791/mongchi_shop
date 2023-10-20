@@ -1,4 +1,4 @@
-<%@ page import="com.example.dto.MemberDTO" %>
+<%@ page import="com.example.mongchi_shop.dto.MemberDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -32,7 +32,7 @@
       <div class="col-md-12">
         <h3 class="h5 mb-4 text-black"></h3>
         <h3 class="h5 mb-4 text-black"><b>질문</b></h3>
-        <form id="modifyQuestionForm" action="/qnaBoards/modifyQuestion" method="get">
+        <form id="modifyQuestionForm" action="/qnaBoard/modifyQuestion" method="get">
           <div class="row">
             <input type="hidden" name="qno" value="${qnABoardDTO.qno}" >
             <input type="hidden" name="pno" value="${qnABoardDTO.pno}" >
@@ -61,7 +61,7 @@
 
         <h3 class="h5 mb-4 text-black"><b>답변</b></h3>
 
-        <form id="modifyAnswerForm" action="/qnaBoards/modifyAnswer" method="post">
+        <form id="modifyAnswerForm" action="/qnaBoard/modifyAnswer" method="post">
           <input type="hidden" name="qno" value="${qnABoardDTO.qno}">
           <input type="hidden" name="pno" value="${qnABoardDTO.pno}" >
           <div class="form-group mb-5">

@@ -1,17 +1,13 @@
-package com.example.dto;
+package com.example.mongchi_shop.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import java.time.LocalDate;
+import lombok.*;
 
 @Builder
-@Data
+@Getter
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class QnABoardDTO {
+public class QnABoardVO {
     private int qno;    // qna 게시글 번호
     private String emailId;     // qna 작성자 아이디
     private int pno;   // 상품 코드

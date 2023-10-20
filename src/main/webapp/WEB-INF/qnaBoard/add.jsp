@@ -1,5 +1,4 @@
-<%@ page import="com.example.dto.MemberDTO" %>
-<%@ page import="com.example.dto.ProductDTO" %>
+<%@ page import="com.example.mongchi_shop.dto.MemberDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -36,7 +35,7 @@
                     <div class="col-md-12">
                         <h3 class="h5 mb-4 text-center"></h3>
 
-                        <form action="/qnaBoards/add" method="post">
+                        <form action="/qnaBoard/addQuestion" method="post">
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">

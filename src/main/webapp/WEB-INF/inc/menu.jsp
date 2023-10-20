@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.example.dto.MemberDTO" %>
+<%@ page import="com.example.mongchi_shop.dto.MemberDTO" %>
 <link href="/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 <link href="/css/tiny-slider.css" rel="stylesheet">
@@ -58,24 +58,24 @@
 
         <div class="collapse navbar-collapse" id="navbarsFurni">
             <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+                <li class="nav-item"><a class="nav-link" href="../../index.jsp">Home</a></li>
+                <li><a class="nav-link" href="/products">Product</a></li>
                 <c:choose>
 
                     <c:when test="${empty sessionEmailId }">
-                        <li class="nav-item"><a class="nav-link" href="../../index.jsp">Home</a></li>
                         <li><a class="nav-link" href="/login">LogIn</a></li>
                         <li><a class="nav-link" href="/addMember">Register</a></li>
                     </c:when>
                     <c:otherwise>
                         <li><a class="nav-link">[${sessionMemberName}&nbsp;님]</a></li>
-                        <li class="nav-item"><a class="nav-link" href="../../index.jsp">Home</a></li>
                         <li><a class="nav-link" href="/logout">LogOut</a></li>
                     </c:otherwise>
                 </c:choose>
-                <li><a class="nav-link" href="/products">Product</a></li>
+
             </ul>
 
             <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
-                <li><a class="nav-link" href="/myPage"><img src="/images/user.svg"></a></li>
+                <li><a class="nav-link" href="/member/mypage"><img src="/images/user.svg"></a></li>
                 <li><a class="nav-link" href="/cart/list"><img src="/images/cart.svg"></a></li>
             </ul>
         </div>

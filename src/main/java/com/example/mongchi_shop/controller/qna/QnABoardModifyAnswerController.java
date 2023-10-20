@@ -1,7 +1,7 @@
-package com.example.controller.qna;
+package com.example.mongchi_shop.controller.qna;
 
-import com.example.dto.QnABoardDTO;
-import com.example.service.QnABoardService;
+import com.example.mongchi_shop.dto.QnABoardDTO;
+import com.example.mongchi_shop.service.QnABoardService;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.beanutils.BeanUtils;
 
@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Log4j2
-@WebServlet("/qnaBoards/modifyAnswer")
+@WebServlet("/qnaBoard/modifyAnswer")
 public class QnABoardModifyAnswerController extends HttpServlet {
     private final QnABoardService qnABoardService = QnABoardService.INSTANCE;
 

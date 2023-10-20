@@ -1,6 +1,6 @@
-package com.example.controller.qna;
+package com.example.mongchi_shop.controller.qna;
 
-import com.example.service.QnABoardService;
+import com.example.mongchi_shop.service.QnABoardService;
 import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.ServletException;
@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @Log4j2
-@WebServlet("/qnaBoards/remove")
+@WebServlet("/qnaBoard/remove")
 public class QnABoardRemoveQuestionController extends HttpServlet {
 
     private final QnABoardService qnABoardService=QnABoardService.INSTANCE;

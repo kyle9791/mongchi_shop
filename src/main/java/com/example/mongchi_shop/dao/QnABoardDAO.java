@@ -1,6 +1,7 @@
-package com.example.dao;
+package com.example.mongchi_shop.dao;
 
-import com.example.domain.QnABoardVO;
+
+import com.example.mongchi_shop.domain.QnABoardVO;
 import lombok.Cleanup;
 
 import java.sql.Connection;

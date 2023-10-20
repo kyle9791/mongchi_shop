@@ -1,7 +1,7 @@
-<%@ page import="com.example.dto.MemberDTO" %>
-<%@ page import="com.example.dto.QnABoardDTO" %>
+
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="com.example.mongchi_shop.dto.MemberDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -38,7 +38,7 @@
           <h3 class="h5 mb-4 text-black"></h3>
           <h3 class="h5 mb-4 text-black"><b>질문 수정</b></h3>
 
-              <form id="modifyQuestionForm" action="/qnaBoards/modifyQuestion" method="post">
+              <form id="modifyQuestionForm" action="/qnaBoard/modifyQuestion" method="post">
                 <input type="hidden" name="qno" value="${qnABoardDTO.qno}" >
                 <input type="hidden" name="pno" value="${qnABoardDTO.pno}" >
                 <div class="row">

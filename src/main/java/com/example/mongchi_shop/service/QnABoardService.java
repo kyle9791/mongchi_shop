@@ -1,9 +1,9 @@
-package com.example.service;
+package com.example.mongchi_shop.service;
 
-import com.example.dao.QnABoardDAO;
-import com.example.domain.QnABoardVO;
-import com.example.dto.QnABoardDTO;
-import com.example.util.MapperUtil;
+import com.example.mongchi_shop.dao.QnABoardDAO;
+import com.example.mongchi_shop.domain.QnABoardVO;
+import com.example.mongchi_shop.dto.QnABoardDTO;
+import com.example.mongchi_shop.util.MapperUtil;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 

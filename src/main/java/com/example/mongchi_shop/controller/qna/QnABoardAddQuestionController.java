@@ -1,8 +1,8 @@
-package com.example.controller.qna;
+package com.example.mongchi_shop.controller.qna;
 
-import com.example.dto.MemberDTO;
-import com.example.dto.QnABoardDTO;
-import com.example.service.QnABoardService;
+import com.example.mongchi_shop.dto.MemberDTO;
+import com.example.mongchi_shop.dto.QnABoardDTO;
+import com.example.mongchi_shop.service.QnABoardService;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.beanutils.BeanUtils;
 
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Log4j2
-@WebServlet("/qnaBoards/add")
+@WebServlet("/qnaBoard/addQuestion")
 public class QnABoardAddQuestionController extends HttpServlet {
     private final QnABoardService qnaBoardService=QnABoardService.INSTANCE;
 
@@ -29,6 +29,7 @@ public class QnABoardAddQuestionController extends HttpServlet {
         QnABoardDTO qnABoardDTO = new QnABoardDTO();
 
         int pno = Integer.parseInt(req.getParameter("pno"));
+        String productName = req.getParameter("productName");
         log.info("pno: "+pno);
 
         HttpSession session=req.getSession();
@@ -47,6 +48,6 @@ public class QnABoardAddQuestionController extends HttpServlet {
             throw new ServletException("ADD error");
         }
 
-        resp.sendRedirect("/qnaBoards?pno=" + pno);
+        resp.sendRedirect("/products/product?pno=" + pno);
     }
 }
