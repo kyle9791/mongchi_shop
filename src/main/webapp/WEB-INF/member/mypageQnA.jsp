@@ -35,17 +35,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarsFurni">
-            <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
-                <li class="nav-item active">
-                    <a class="nav-link" id="cart" href="/member/mypage"> 장바구니 </a>
-                </li>
-                <li><a class="nav-link" href="/member/myQnA"> QnA </a></li>
-                <li><a class="nav-link" href="/review/myReview"> 나의리뷰 </a></li>
-                <li><a class="nav-link" href="/member/modify"> 내정보수정 </a></li>
-                <li><a class="nav-link" href="/member/myorder"> 내구매목록 </a></li>
-            </ul>
-        </div>
+        <jsp:include page="/WEB-INF/inc/mypageNavi.jsp" />
     </div>
 </nav>
 <%
@@ -101,7 +91,7 @@
                                     <td>${qnaDto.questionContent}</td>
                                 </c:if>
                                 <td>${qnaDto.getQuestionDate()}</td>
-                                <td><a href="/qnaBoard/modifyQuestion?qno=${qnaDto.qno}&pno=${qnaDto.pno}" value="수정"/>수정하기</td>
+                                <td><a href="/qnaBoards/modifyQuestion?qno=${qnaDto.qno}&pno=${qnaDto.pno}" value="수정"/>수정하기</td>
                             </tr>
                         </c:forEach>
 
@@ -161,15 +151,15 @@
             </c:choose>
         </a>
     </c:forEach>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="row mb-5">
-                <div class="col-md-10">
-                    <button href="/qnaBoard/qnaList" id="btn-products" class="btn btn-outline-black btn-sm btn-block">QnA상세 페이지</button>
-                </div>
-            </div>
-        </div>
-    </div>
+<%--    <div class="row">--%>
+<%--        <div class="col-md-6">--%>
+<%--            <div class="row mb-5">--%>
+<%--                <div class="col-md-10">--%>
+<%--                    <button href="/qnaBoard/qnaList" id="btn-products" class="btn btn-outline-black btn-sm btn-block">QnA상세 페이지</button>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
+<%--    </div>--%>
 
     <c:if test="${thisBlock<totalBlock}">
         <a href="/qnaBoard/qnaList?currentPage=${lastPage+1}"/><span>다음</span></a>

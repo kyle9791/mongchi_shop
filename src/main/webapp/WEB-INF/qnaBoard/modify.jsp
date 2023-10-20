@@ -64,6 +64,7 @@
                 </div>
                 <div class="form-group" style="margin-top: -30px;">
                   <button id="send" type="button" class="btn btn-primary-hover-outline" style="background: #3b5d50 !important; padding: 10px 20px !important;">수정</button>
+                  <button id="remove" type="button" class="btn btn-primary-hover-outline" style="background: #3b5d50 !important; padding: 10px 20px !important;">삭제</button>
                   <button type="reset" class="btn btn-primary-hover-outline" style="padding: 10px 20px !important;">초기화</button>
                   <button class="btn btn-secondary-hover-outline" style="padding: 10px 20px !important;"><a href="/qnaBoards?pno=<%=pno%>" style="text-decoration: none;" class="text-white">뒤로 가기</a></button>
                 </div>
@@ -78,8 +79,9 @@
 <script>
   const questionForm = document.querySelector("#modifyQuestionForm");
   const questionContent = document.querySelector("#modifyQuestionForm textarea");
-  const btn = document.querySelector("#send");
-  btn.addEventListener("click", function () {
+  const sendBtn = document.querySelector("#send");
+  const removeBtn=document.querySelector("#remove");
+  sendBtn.addEventListener("click", function () {
     questionContent.value = questionContent.value.trim();
     questionForm.submit();
   });
@@ -87,8 +89,10 @@
     const content = document.querySelector("textarea");
     content.value = content.value.trim();
   });
+  removeBtn.addEventListener("click", function() {
+    questionForm.submit();
+  });
 </script>
-
   <script src="/js/bootstrap.bundle.min.js"></script>
   <script src="/js/tiny-slider.js"></script>
   <script src="/js/custom.js"></script>
