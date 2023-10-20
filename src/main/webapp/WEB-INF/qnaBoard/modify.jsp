@@ -14,6 +14,7 @@
 <body>
 <%
   int pno=(Integer)request.getAttribute("pno"); // doGet
+  int qno=Integer.parseInt(request.getParameter("qno"));
 //  int pno=Integer.parseInt(request.getParameter("pno"));
   MemberDTO memberDTO= (MemberDTO) session.getAttribute("loginInfo");
   String sessionEmailId=null;
@@ -64,7 +65,7 @@
                 </div>
                 <div class="form-group" style="margin-top: -30px;">
                   <button id="send" type="button" class="btn btn-primary-hover-outline" style="background: #3b5d50 !important; padding: 10px 20px !important;">수정</button>
-                  <button id="remove" type="button" class="btn btn-primary-hover-outline" style="background: #3b5d50 !important; padding: 10px 20px !important;">삭제</button>
+                  <a href="/qnaBoard/remove?pno=<%=pno%>&qno=<%=qno%>" class="btn btn-primary-hover-outline">삭제</a>
                   <button type="reset" class="btn btn-primary-hover-outline" style="padding: 10px 20px !important;">초기화</button>
                   <button class="btn btn-secondary-hover-outline" style="padding: 10px 20px !important;"><a href="/qnaBoards?pno=<%=pno%>" style="text-decoration: none;" class="text-white">뒤로 가기</a></button>
                 </div>
@@ -93,6 +94,7 @@
     questionForm.submit();
   });
 </script>
+
   <script src="/js/bootstrap.bundle.min.js"></script>
   <script src="/js/tiny-slider.js"></script>
   <script src="/js/custom.js"></script>

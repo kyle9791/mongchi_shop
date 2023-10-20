@@ -124,6 +124,7 @@
           </ul>
 
           <c:forEach var="qnaDto" items="${qnABoardDTOList}">
+            <input type="hidden" name="qno" value="${qnABoardDTO.qno}" >
             <c:if test="${not empty qnABoardDTOList}">
             <%--            <c:if test="${fn:length(qnABoardDTOList) > 0}">--%>
 
@@ -165,7 +166,6 @@
                           <c:if test="${qnaDto.answered==false}">
                             <a href="/qnaBoard/modifyQuestion?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;질문 수정/삭제</a>
                           </c:if>
-<%--                          <a href="/qnaBoard/remove?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;질문 삭제&nbsp;</a>--%>
                         </c:if>
                         <c:if test="${role eq 'qna'}">
                           <a href="/qnaBoard/addAnswer?pno=<%=pno%>&qno=${qnaDto.qno}" class="a_href">|&nbsp;답변 등록</a>
