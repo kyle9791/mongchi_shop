@@ -1,13 +1,12 @@
 package service;
 
-import com.example.dto.CartDTO;
-import com.example.service.CartService;
+import com.example.mongchi_shop.dto.CartDTO;
+import com.example.mongchi_shop.service.CartService;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.sql.SQLException;
-import java.util.List;
 
 @Log4j2
 public class CartServiceTests {

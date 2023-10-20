@@ -1,9 +1,7 @@
 package dao;
 
-import com.example.dao.CartDAO;
-import com.example.domain.CartVO;
-import com.example.dao.CartDAO;
-import com.example.domain.CartVO;
+import com.example.mongchi_shop.dao.CartDAO;
+import com.example.mongchi_shop.domain.CartVO;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

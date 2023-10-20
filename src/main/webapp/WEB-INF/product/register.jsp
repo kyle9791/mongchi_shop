@@ -1,57 +1,33 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: 이헌구
+  Date: 2023-09-27
+  Time: 오후 5:10
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>상품 등록</title>
-  <link href="/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-  <link href="/css/tiny-slider.css" rel="stylesheet">
-  <link href="/css/style.css" rel="stylesheet">
+    <title>상품등록</title>
 </head>
 <body>
-
-<jsp:include page="../inc/menu.jsp"/>
-
-<div class="hero">
-  <div class="container">
-    <h1 class="font-apply"><span class="d-block">상품 등록</span></h1>
+<form action="/admin/products/register" method="post" enctype="multipart/form-data">
+  <div>상품코드: <input type="text" name="pcode" required></div>
+  <div>상품이름: <input type="text" name="productName" required></div>
+  <div>상품가격: <input type="number" name="unitPrice" required></div>
+  <div>상품설명: <textarea name="description" cols="30" rows="10" required></textarea></div>
+  <div>
+    상품종류:
+    티셔츠<input type="radio" name="category" value="T_shirt">
+    케이스<input type="radio" name="category" value="Case">
+    파우치<input type="radio" name="category" value="Pouch">
+    에코백<input type="radio" name="category" value="Echo_bag">
   </div>
-</div>
-
-<div class="center">
-  <section class="ftco-section">
-    <div class="container">
-      <div class="row justify-content-center"></div>
-      <div class="row">
-        <div class="col-md-12">
-          <h3 class="h5 mb-4 text-center"></h3>
-
-              <form action="/admin/products/register" method="post" enctype="multipart/form-data">
-                  <p><label>상품 코드&nbsp;</label> <input type="text" name="pcode" required></p>
-                  <p><label>상품 이름&nbsp;</label> <input type="text" name="productName" required></p>
-                  <p><label>상품 가격&nbsp;</label> <input type="text" name="unitPrice" required></p>
-                  <p><label>상품 설명&nbsp;</label> <textarea name="description" cols="30" rows="10" required></textarea></p>
-                  <p><label>상품 종류&nbsp;</label>
-                    <input type="radio" name="category" value="티셔츠">&nbsp;티셔츠&nbsp;
-                    <input type="radio" name="category" value="케이스">케이스&nbsp;
-                    <input type="radio" name="category" value="파우치">파우치&nbsp;
-                    <input type="radio" name="category" value="에코백">에코백
-                  </p>
-                  <p><label>상품 재고&nbsp;</label> <input type="number" name="unitsInstock" required></p>
-                  <p><label>상품 이미지&nbsp;</label><input type="file" name="file"></p>
-                  <button type="submit">상품 등록</button>
-              </form>
-
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<script src="/js/bootstrap.bundle.min.js"></script>
-<script src="/js/tiny-slider.js"></script>
-<script src="/js/custom.js"></script>
-
-<jsp:include page="../inc/footer.jsp"/>
-
+  <div>상품재고: <input type="number" name="unitsInstock" required></div>
+  <div><input type="file" name="file"></div>
+  <div>주문수량: <input type="number" name="accumulatedOrders" required></div>
+  <div>리뷰 수:<input type="number" name="reviewCount" required></div>
+  <button type="submit">상품등록</button>
+</form>
 </body>
 </html>

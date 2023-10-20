@@ -1,54 +1,49 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
 <html>
 <head>
     <title>로그인</title>
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="/css/tiny-slider.css" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
+<jsp:include page="/WEB-INF/inc/menu.jsp" />
+<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
 
-<jsp:include page="../inc/menu.jsp"/>
-
-<div class="hero">
     <div class="container">
-        <h1 class="font-apply"><span class="d-block">로그인</span></h1>
+        <a class="navbar-brand"> 로그인 <span>.</span></a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+
     </div>
-</div>
-
-<div class="center">
-    <section class="ftco-section">
-        <div class="container">
-            <div class="row justify-content-center"></div>
-            <div class="row">
-                <div class="col-md-12">
-                    <h3 class="h5 mb-4 text-center"></h3>
-
-                        <c:if test="${param.result == 'error'}">
-                            <h1 style="color: red" alert>아이디와 비밀번호를 확인해 주세요</h1>
-                        </c:if>
-                        <form action="/login" method="post">
-                            <p><label>이메일&nbsp;</label><input type="email" name="emailId"></p>
-                            <p><label>비밀번호&nbsp;</label><input type="password" name="password"></p>
-                            <input type="checkbox" name="auto"><label>&nbsp;자동 로그인</label>
-                            &nbsp;<button type="submit">로그인</button>
-                            &nbsp;<button><a href="/addMember" class="text-white">회원 가입</a></button>
-                        </form>
-
-                </div>
-            </div>
+</nav>
+<div class="container">
+    <c:if test="${param.result == 'error'}">
+        <div class="alert alert-danger">
+            아이디와 비밀번호를 확인해 주세요
         </div>
-    </section>
+    </c:if>
+    <form action="/login" method="post">
+        <div class="form-group">
+            <label>이메일</label>
+            <input type="email" name="emailId" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>비번</label>
+            <input type="password" name="password" class="form-control">
+        </div>
+        <div class="form-check">
+            <input type="checkbox" name="auto" class="form-check-input">
+            <label class="form-check-label">자동 로그인</label>
+        </div>
+        <button type="submit" class="btn btn-primary">로그인</button>
+        <a href="/addMember" class="btn btn-link">회원가입</a>
+    </form>
 </div>
-
-<script src="/js/bootstrap.bundle.min.js"></script>
-<script src="/js/tiny-slider.js"></script>
-<script src="/js/custom.js"></script>
-
-<jsp:include page="../inc/footer.jsp"/>
+<jsp:include page="/WEB-INF/inc/footer.jsp" />
 </body>
 </html>
-
-
