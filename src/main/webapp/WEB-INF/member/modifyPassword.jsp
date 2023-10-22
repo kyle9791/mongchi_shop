@@ -36,10 +36,10 @@
 
                         if (p1.value.length < 8) {
                                 c1.style.color = "red";
-                                c1.innerHTML = "비밀번호는 여덟자 이상이어야 합니다";
+                                c1.innerHTML = "비밀번호는 8자 이상이어야 합니다.";
                         } else if (!lowercaseRegex.test(p1.value) || !digitRegex.test(p1.value)) {
                                 c1.style.color = "red";
-                                c1.innerHTML = "비밀번호는 반드시 영문(소문자)와 숫자를 포함해야 합니다!";
+                                c1.innerHTML = "비밀번호는 반드시 영문(소문자)와 숫자를 포함해야 합니다.";
                         } else {
                                 c1.style.color = "green";
                                 c1.innerHTML = "비밀번호가 유효합니다.";
@@ -58,7 +58,7 @@
                                         console.log(json)
                                         if (json.result === 'true') {
                                                 console.log("200 TRUE")
-                                                alert("기존비밀번호와 동일한번호입니다");
+                                                alert("기존 비밀번호와 동일한 비밀번호입니다.");
                                                 p1.clear;
                                         } else {
                                                 console.error('Error', xhr.status, xhr.statusText);
@@ -71,15 +71,15 @@
                         if (p1.value === "") {
                                 p1.focus();
                                 c1.style.color = "red"
-                                c1.innerHTML = "비밀번호를 입력해 주세요";
+                                c1.innerHTML = "비밀번호를 입력해 주세요.";
                         } else if (p1.value !== p2.value) {
                                 c1.style.color = "red"
-                                c1.innerHTML = "비밀번호가 일치하지 않습니다!";
+                                c1.innerHTML = "비밀번호가 일치하지 않습니다.";
                                 p1.value = "";
                                 p2.value = "";
                         } else if (p1.value === p2.value) {
                                 c1.style.color = "green";
-                                c1.innerHTML = "비밀번호가 일치합니다!";
+                                c1.innerHTML = "비밀번호가 일치합니다.";
                         }
                 });
         });

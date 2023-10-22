@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>정보수정</title>
+    <title>정보 수정</title>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
@@ -11,7 +11,7 @@
 <nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark bg-dark" arial-label="Furni navigation bar">
 
     <div class="container">
-        <a class="navbar-brand"> 정보수정 <span>.</span></a>
+        <a class="navbar-brand"> 정보 수정 <span>.</span></a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsFurni" aria-controls="navbarsFurni" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -55,8 +55,8 @@
             <label for="address02">상세주소</label>
             <input type="text" name="address02" value="${dto.address02}" id="address02" class="form-control" placeholder="상세주소">
         </div>
-        <button name="modify" type="submit" class="btn btn-primary">정보수정</button>
-        <a href="#" id="removeMemberLink" class="btn btn-danger">회원탈퇴</a>
+        <button name="modify" type="submit" class="btn btn-primary">정보 수정</button>
+        <a href="#" id="removeMemberLink" class="btn btn-danger">회원 탈퇴</a>
     </form>
 </div>
 <jsp:include page="/WEB-INF/inc/footer.jsp" />

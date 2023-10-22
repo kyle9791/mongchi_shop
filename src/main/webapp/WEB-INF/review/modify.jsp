@@ -10,7 +10,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/review_star.css">
-    <title>리뷰수정</title>
+    <title>리뷰 수정</title>
 
   <style>
 
@@ -29,7 +29,7 @@
     <div class="row justify-content-between">
       <div class="col-lg-5">
         <div class="intro-excerpt">
-          <h1>나의 리뷰수정</h1>
+          <h1>나의 리뷰 수정</h1>
         </div>
       </div>
       <div class="col-lg-7">
@@ -60,7 +60,7 @@
         <br>
         <div class="form-group">
             <div class="float-start">
-                <h2><label for="modifyContent"><b>리뷰내용</b></label></h2>
+                <h2><label for="modifyContent"><b>리뷰 내용</b></label></h2>
             </div>
             <input type="hidden" name="addDate" value="${reviewDTO.addDate}">
             <input type="text" class="form-control" id="modifyContent" name="content" rows="3"  value="${reviewDTO.content}" placeholder="내용을 작성하세요">
@@ -112,14 +112,14 @@
 
       // 별점을 입력하지 않았을 경우
       if (selectedRate === "") {
-          alert("별점을 선택해주세요");
+          alert("별점을 선택해 주세요.");
           event.preventDefault(); // 폼 제출을 막음
           return; // 다음 if절이 시행되지 않도록 return
       }
 
       // 리뷰를 작성하지 않았을 경우
       if (selectedText === "") {
-          alert("내용을 입력해주세요")
+          alert("내용을 입력해 주세요.")
           event.preventDefault(); // 폼 제출을 막음
       }
   });

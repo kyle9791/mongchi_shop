@@ -43,7 +43,7 @@
                             <thead>
                             <tr class="title" align="center">
                                 <th>번호</th>
-                                <th>상품이미지</th>
+                                <th>상품 이미지</th>
                                 <th>내용</th>
                                 <th>아이디</th>
                                 <th>별점</th>
@@ -153,14 +153,14 @@
 
         // 별점을 입력하지 않았을 경우
         if (selectedRate === "") {
-            alert("별점을 선택해주세요");
+            alert("별점을 선택해 주세요.");
             event.preventDefault(); // 폼 제출을 막음
             return; // 다음 if절이 시행되지 않도록 return
         }
 
         // 리뷰를 작성하지 않았을 경우
         if (selectedText === "") {
-            alert("리뷰를 작성해주세요")
+            alert("리뷰를 작성해 주세요.")
             event.preventDefault(); // 폼 제출을 막음
         }
     });

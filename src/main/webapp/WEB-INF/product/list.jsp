@@ -1,13 +1,8 @@
 <%@ page import="java.util.List" %>
-<%@ page import="com.example.mongchi_shop.dto.ProductDTO" %><%--
-  Created by IntelliJ IDEA.
-  User: 이헌구
-  Date: 2023-09-27
-  Time: 오후 12:12
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="com.example.mongchi_shop.dto.ProductDTO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
     List<ProductDTO> productDTOList = (List<ProductDTO>) request.getAttribute("productDTOList");
     int currentPage = (int) request.getAttribute("currentPage");
@@ -24,57 +19,14 @@
 %>
 <html>
 <head>
+    <link rel="stylesheet" href="/css/effect.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <title>상품 목록</title>
 </head>
 <body>
 <!-- Start UI 공통 (복붙) -->
 <!-- Navigation Bar -->
-    <jsp:include page="/WEB-INF/inc/menu.jsp" />
-<style>
-    .fade-in-box {
-        animation: fadein 5s ease 3s;
-        -moz-animation: fadein 3s; /* Firefox */
-        -webkit-animation: fadein 3s; /* Safari and Chrome */
-        -o-animation: fadein 3s; /* Opera */
-    }
-    @keyframes fadein {
-        from {
-            opacity:0;
-        }
-        to {
-            opacity:1;
-        }
-    }
-    @-moz-keyframes fadein { /* Firefox */
-        from {
-            opacity:0;
-        }
-        to {
-            opacity:1;
-        }
-    }
-    @-webkit-keyframes fadein { /* Safari and Chrome */
-        from {
-            opacity:0;
-        }
-        to {
-            opacity:1;
-        }
-    }
-    @-o-keyframes fadein { /* Opera */
-        from {
-            opacity:0;
-        }
-        to {
-            opacity: 1;
-        }
-    }
-
-    .bold {
-        font-weight: 600;
-    }
-</style>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<jsp:include page="/WEB-INF/inc/menu.jsp" />
 <script>
     $(function () {
         const imgSrcs = ['/images/char/img1.png', '/images/char/img2.png', '/images/char/img3.png', '/images/char/img4.png', '/images/char/img5.png'];
@@ -82,7 +34,7 @@
         $('.hero-img-wrap img').attr('src', imgSrcs[random]);
     });
 
-    // 정렬 탭 클릭시 active 클래스 추가
+    // 페이지 로드시 bold 클래스 추가
     document.addEventListener('DOMContentLoaded', function () {
         const navItems = document.querySelectorAll('.nav a');
         const BOLD_CLASSNAME = 'bold';
@@ -121,7 +73,7 @@
             <div class="row justify-content-between">
                 <div class="col-lg-5">
                     <div class="intro-excerpt">
-                        <h1>상품목록</h1>
+                        <h1 class="font-apply">상품 목록</h1>
                     </div>
                 </div>
                 <div class="col-lg-7">
@@ -137,7 +89,7 @@
 
     <div class="untree_co-section product-section before-footer-section">
         <div class="container">
-            <nav class="row">
+            <nav class="row mb-5">
                 <ul class="nav justify-content-center">
                     <li class="nav-item">
                         <a class="nav-link text-black" href="/products?sort=NEW">최신등록순</a>
@@ -164,7 +116,9 @@
                         <a class="product-item" href="/products/product?pno=${product.pno}">
                             <img src="${product.fileName}" class="img-fluid product-thumbnail" style="height: 70%;">
                             <h3 class="product-title">${product.productName}</h3>
-                            <strong class="product-price">${product.unitPrice}원</strong>
+                            <strong class="product-price">
+                                <fmt:formatNumber type="number" maxFractionDigits="3" value="${product.unitPrice}"/>원
+                            </strong>
 
                             <span class="icon-cross">
 								<img src="images/cross.svg" class="img-fluid">
@@ -197,7 +151,10 @@
         </div>
     </div>
 
+<jsp:include page="/WEB-INF/inc/footer.jsp" />
+
 <script>
+    // 페이지네이션
     document.querySelector('.pagination').addEventListener('click', function (e) {
         e.preventDefault();
         e.stopPropagation();

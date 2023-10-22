@@ -24,7 +24,7 @@
 <div class="container">
     <c:if test="${param.result == 'error'}">
         <div class="alert alert-danger">
-            아이디와 비밀번호를 확인해 주세요
+            아이디와 비밀번호를 확인해 주세요.
         </div>
     </c:if>
     <form action="/login" method="post">

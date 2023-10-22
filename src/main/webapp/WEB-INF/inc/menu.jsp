@@ -33,6 +33,25 @@
     ::-webkit-scrollbar-thumb:hover { background-color: #8FBC8F; }
 
 </style>
+
+<script>
+    // 메뉴 클릭 시 active 클래스 추가
+    document.addEventListener('DOMContentLoaded', function () {
+        const navItems = document.querySelectorAll('#navbarsFurni a');
+        const ACTIVE_CLASSNAME = 'active';
+
+        window.location.pathname;
+        for (const item of navItems) {
+            let href = item.getAttribute('href');
+            if (window.location.pathname == href) {
+                console.log(item);
+                item.parentElement.classList.add(ACTIVE_CLASSNAME);
+                break;
+            }
+        }
+    });
+</script>
+
 <%
     MemberDTO memberDTO= (MemberDTO) session.getAttribute("loginInfo");
     String sessionEmailId=null;

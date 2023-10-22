@@ -1,11 +1,5 @@
 <%@ page import="com.example.mongchi_shop.dto.CartDTO" %>
-<%@ page import="java.util.List" %><%--
-  Created by IntelliJ IDEA.
-  User: Admin
-  Date: 2023-10-14
-  Time: 오후 9:26
-  To change this template use File | Settings | File Templates.
---%>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     List<CartDTO> cartDTOList = (List<CartDTO>) session.getAttribute("cartDTOList");

@@ -31,7 +31,7 @@ public class QnABoardDAO {
 
     public QnABoardVO selectQnABoardByQno(int pno, int qno) throws Exception {
         // qna 세부 페이지
-        String sql="select * from qna_board where pno=? and qno=?";
+        String sql="select * from qna_board where pno=? and qno=? order by qno desc";
         @Cleanup Connection connection= ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement preparedStatement=connection.prepareStatement(sql);
         preparedStatement.setInt(1, pno);
@@ -59,7 +59,7 @@ public class QnABoardDAO {
 
     public List<QnABoardVO> selectQnABoardByEmailId(String emailId, int currentPage, int limit) throws Exception {
         // 마이페이지
-        String sql="select * from qna_board where emailId=? order by qno limit ?,?";
+        String sql="select * from qna_board where emailId=? order by qno desc limit ?,?";
 
         int beginRow=(currentPage-1)*limit;
 
@@ -71,7 +71,7 @@ public class QnABoardDAO {
         @Cleanup ResultSet resultSet=preparedStatement.executeQuery();
 
         ArrayList<QnABoardVO> qnaList=new ArrayList<>();
-        if(resultSet.next()) {
+        while(resultSet.next()) {
             QnABoardVO qnABoardVO = QnABoardVO.builder()
                     .pno(resultSet.getInt("pno"))
                     .questionDate(resultSet.getString("questionDate"))
@@ -92,7 +92,7 @@ public class QnABoardDAO {
 
     public List<QnABoardVO> selectQnAByPno(int pno, int currentPage, int limit) throws Exception {
         // pcode에 따른 qna 리스트
-        String sql="select * from qna_board where pno=? order by qno limit ?,?";
+        String sql="select * from qna_board where pno=? order by qno desc limit ?,?";
 
         int beginRow=(currentPage-1)*limit;
 

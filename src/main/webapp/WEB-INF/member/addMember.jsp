@@ -15,11 +15,11 @@
             <span class="memberEmailCheck"></span>
         </div>
         <div class="form-group">
-            <label>비번</label>
+            <label>비밀번호</label>
             <input type="password" name="password" class="form-control" required>
         </div>
         <div class="form-group">
-            <label>비번확인</label>
+            <label>비밀번호 확인</label>
             <input type="password" name="password2" class="form-control" required>
             <span class="passCheck"></span>
         </div>
@@ -32,7 +32,7 @@
             <input type="text" name="phone" class="form-control">
         </div>
         <div class="form-group">
-            <label>생일</label>
+            <label>생년월일</label>
             <input type="date" name="birthday" class="form-control">
         </div>
         <div class="form-group">
@@ -117,10 +117,10 @@
         p1.addEventListener("keyup", function () {
             if (p1.value.length < 8) {
                 c1.style.color = "red"
-                c1.innerHTML = "비밀번호는 여덟자 이상이어야 합니다";
+                c1.innerHTML = "비밀번호는 8자 이상이어야 합니다.";
             } else if (!lowercaseRegex.test(p1.value) || !digitRegex.test(p1.value)) {
                 c1.style.color = "red"
-                c1.innerHTML = "비밀번호는 반드시 영문(소문자)와 숫자를 포함해야 합니다!";
+                c1.innerHTML = "비밀번호는 반드시 영문(소문자)와 숫자를 포함해야 합니다.";
             } else {
                 c1.style.color = "green"
                 c1.innerHTML = "비밀번호가 유효합니다.";
@@ -143,7 +143,7 @@
                     const json = JSON.parse(xhr.response);
                     if(json.result === 'true') {
                         memberEmailCheck.style.color = 'red';
-                        memberEmailCheck.innerHTML = '동일한 아이디가 있습니다!';
+                        memberEmailCheck.innerHTML = '동일한 아이디가 있습니다.';
                     }
                     else {
                         memberEmailCheck.style.color = 'gray';

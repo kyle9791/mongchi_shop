@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="com.example.mongchi_shop.dto.CartDTO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.mongchi_shop.dto.MemberDTO" %>
@@ -25,7 +26,7 @@
 			<div class="row justify-content-between">
 				<div class="col-lg-5">
 					<div class="intro-excerpt">
-						<h1>주문 정보</h1>
+						<h1 class="font-apply">주문 정보</h1>
 					</div>
 				</div>
 				<div class="col-lg-7">
@@ -41,7 +42,7 @@
 			<form action="/cart/shippingInfo" method="post">
 				<div class="row">
 					<div class="col-md-6 mb-5 mb-md-0">
-						<h2 class="h3 mb-3 text-black">배송지 정보</h2>
+						<h2 class="h3 mb-3 text-black font-apply">배송지 정보</h2>
 						<div class="p-3 p-lg-5 border bg-white">
 							<div class="form-group row">
 								<div class="col-md-12">
@@ -93,7 +94,7 @@
 
 						<div class="row mb-5">
 							<div class="col-md-12">
-								<h2 class="h3 mb-3 text-black">주문 정보</h2>
+								<h2 class="h3 mb-3 text-black font-apply">주문 정보</h2>
 								<div class="p-3 p-lg-5 border bg-white">
 									<table class="table site-block-order-table mb-5">
 										<thead>
@@ -111,14 +112,20 @@
 												<td>
 													<%= cart.getProductName() %> <strong class="mx-2">x</strong> <%= cart.getCnt() %>
 												</td>
-												<td><%= price %>원</td>
+												<td>
+													<fmt:formatNumber type="number" maxFractionDigits="3" value="<%= price %>"/>원
+												</td>
 											</tr>
 											<%
 												}
 											%>
 										<tr>
 											<td class="text-black font-weight-bold"><strong>Order Total</strong></td>
-											<td class="text-black font-weight-bold"><strong><%= totalAmount %>원</strong></td>
+											<td class="text-black font-weight-bold">
+												<strong>
+													<fmt:formatNumber type="number" maxFractionDigits="3" value="<%= totalAmount %>"/>원
+												</strong>
+											</td>
 										</tr>
 										</tbody>
 									</table>
@@ -140,6 +147,8 @@
 			</form>
 		</div>
 	</div>
+
+	<jsp:include page="/WEB-INF/inc/footer.jsp" />
 
 	<!-- 다음 주소 검색 api -->
 	<script>
