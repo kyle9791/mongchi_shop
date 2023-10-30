@@ -3,55 +3,70 @@
 <head>
     <title>회원가입</title>
     <!-- Add Bootstrap CSS (you may need to provide the correct Bootstrap CSS URL) -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="/css/tiny-slider.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
 </head>
 <body>
-<jsp:include page="/WEB-INF/inc/menu.jsp"/>
-<div class="container">
-    <form action="/addMember" method="post">
-        <div class="form-group">
-            <label>이메일</label>
-            <input type="email" name="emailId" class="form-control">
-            <span class="memberEmailCheck"></span>
-        </div>
-        <div class="form-group">
-            <label>비밀번호</label>
-            <input type="password" name="password" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label>비밀번호 확인</label>
-            <input type="password" name="password2" class="form-control" required>
-            <span class="passCheck"></span>
-        </div>
-        <div class="form-group">
-            <label>이름</label>
-            <input type="text" name="memberName" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label>전화번호</label>
-            <input type="text" name="phone" class="form-control">
-        </div>
-        <div class="form-group">
-            <label>생년월일</label>
-            <input type="date" name="birthday" class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="zipCode">우편번호</label>
-            <input type="text" name="zipCode" id="zipCode" class="form-control" placeholder="우편번호">
-            <input type="button" name="findCode" class="btn btn-primary" value="우편번호 찾기"/>
-        </div>
-        <div class="form-group">
-            <label for="address01">번지수/도로명</label>
-            <input type="text" name="address01" id="address01" class="form-control" placeholder="주소">
-        </div>
-        <div class="form-group">
-            <label for="address02">상세주소</label>
-            <input type="text" name="address02" id="address02" class="form-control" placeholder="상세주소">
-        </div>
-        <button type="submit" class="btn btn-primary">회원가입</button>
-    </form>
+<div class="hero">
+    <div class="container">
+        <h1 class="font-apply"><span class="d-block">회원가입</span></h1>
+    </div>
 </div>
-<jsp:include page="/WEB-INF/inc/footer.jsp"/>
+
+<div class="center">
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center"></div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h3 class="h5 mb-4 text-center"></h3>
+
+                <form action="/addMember" method="post">
+                    <div class="form-group">
+                        <label>이메일</label>
+                        <input type="email" name="emailId" class="form-control">
+                        <span class="memberEmailCheck"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>비밀번호</label>
+                        <input type="password" name="password" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>비밀번호 확인</label>
+                        <input type="password" name="password2" class="form-control" required>
+                        <span class="passCheck"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>이름</label>
+                        <input type="text" name="memberName" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label>전화번호</label>
+                        <input type="text" name="phone" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label>생일</label>
+                        <input type="date" name="birthday" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="zipCode">우편번호</label>
+                        <input type="text" name="zipCode" id="zipCode" class="form-control" placeholder="우편번호">
+                        <input type="button" name="findCode" class="btn btn-primary" value="우편번호 찾기"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="address01">번지수/도로명</label>
+                        <input type="text" name="address01" id="address01" class="form-control" placeholder="주소">
+                    </div>
+                    <div class="form-group">
+                        <label for="address02">상세주소</label>
+                        <input type="text" name="address02" id="address02" class="form-control" placeholder="상세주소">
+                    </div>
+                    <button type="submit" class="btn btn-primary">회원가입</button>
+                </form>
+    </div>
+    <jsp:include page="/WEB-INF/inc/footer.jsp"/>
 </body>
 <script src="https://spi.maps.daum.net/imap/map_js_init/postcode.v2.js"></script>
 <script>
@@ -117,13 +132,29 @@
         p1.addEventListener("keyup", function () {
             if (p1.value.length < 8) {
                 c1.style.color = "red"
-                c1.innerHTML = "비밀번호는 8자 이상이어야 합니다.";
+                c1.innerHTML = "비밀번호는 여덟자 이상이어야 합니다";
             } else if (!lowercaseRegex.test(p1.value) || !digitRegex.test(p1.value)) {
                 c1.style.color = "red"
-                c1.innerHTML = "비밀번호는 반드시 영문(소문자)와 숫자를 포함해야 합니다.";
+                c1.innerHTML = "비밀번호는 반드시 영문(소문자)와 숫자를 포함해야 합니다!";
             } else {
                 c1.style.color = "green"
                 c1.innerHTML = "비밀번호가 유효합니다.";
+            }
+        });
+
+        p2.addEventListener("focusout", function () {
+            if (p1.value === "") {
+                p1.focus();
+                c1.style.color = "red"
+                c1.innerHTML = "비밀번호를 입력해 주세요";
+            } else if (p1.value !== p2.value) {
+                c1.style.color = "red"
+                c1.innerHTML = "비밀번호가 일치하지 않습니다!";
+                p1.value = "";
+                p2.value = "";
+            } else if (p1.value === p2.value) {
+                c1.style.color = "green";
+                c1.innerHTML = "비밀번호가 일치합니다!";
             }
         });
 
@@ -143,7 +174,7 @@
                     const json = JSON.parse(xhr.response);
                     if(json.result === 'true') {
                         memberEmailCheck.style.color = 'red';
-                        memberEmailCheck.innerHTML = '동일한 아이디가 있습니다.';
+                        memberEmailCheck.innerHTML = '동일한 아이디가 있습니다!';
                     }
                     else {
                         memberEmailCheck.style.color = 'gray';

@@ -3,24 +3,40 @@
 <head>
     <title>비밀번호 수정</title>
 </head>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<link href="/css/tiny-slider.css" rel="stylesheet">
+<link href="/css/style.css" rel="stylesheet">
 <body>
-<jsp:include page="/WEB-INF/inc/menu.jsp"/>
-<div class="container">
-        <form method="post" action="/member/modifyPassword">
-                <div class="form-group">
-                        <label >새 비밀번호</label>
-                        <input type="password" name="password" id="password" class="form-control" required style="width: 40%">
-                </div>
-                <div class="form-group">
-                        <label >새 비밀번호 확인</label>
-                        <input type="password" name="password2" class="form-control" id="password2" required style="width: 40%">
-                        <span class="passCheck"></span>
-                </div>
-                <input name="emailId" value="${emailId}" hidden="hidden" id="emailId">
-                <button type="submit" class="btn btn-primary">수정</button>
-        </form>
+<div class="hero">
+        <div class="container">
+                <h1 class="font-apply"><span class="d-block">비밀번호 수정</span></h1>
+        </div>
 </div>
+
+<div class="center">
+        <section class="ftco-section">
+                <div class="container">
+                        <div class="row justify-content-center"></div>
+                        <div class="row">
+                                <div class="col-md-12">
+                                        <h3 class="h5 mb-4 text-center"></h3>
+
+                                        <div class="container">
+                                                <form method="post" action="/member/modifyPassword">
+                                                        <div class="form-group">
+                                                                <label >새 비밀번호</label>
+                                                                <input type="password" name="password" id="password" class="form-control" required style="width: 40%">
+                                                        </div>
+                                                        <div class="form-group">
+                                                                <label >새 비밀번호 확인</label>
+                                                                <input type="password" name="password2" class="form-control" id="password2" required style="width: 40%">
+                                                                <span class="passCheck"></span>
+                                                        </div>
+                                                        <input name="emailId" value="${emailId}" hidden="hidden" id="emailId">
+                                                        <button type="submit" class="btn btn-primary">수정</button>
+                                                </form>
+                                        </div>
 
 <script>
         document.addEventListener("DOMContentLoaded",function () {
